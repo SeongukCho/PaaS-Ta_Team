@@ -1,0 +1,58 @@
+2023-10-05 16:38:00 [INFO ] k.p.SpringBootMariaDbTemplateApplication - Starting SpringBootMariaDbTemplateApplication using Java 1.8.0_191 on DESKTOP-HTHK9NH with PID 5680 (C:\SpringBootMariaDBTemplate\target\classes started by data4 in C:\SpringBootMariaDBTemplate)
+2023-10-05 16:38:00 [INFO ] k.p.SpringBootMariaDbTemplateApplication - The following 1 profile is active: "prod"
+2023-10-05 16:38:11 [INFO ] k.p.SpringBootMariaDbTemplateApplication - Starting SpringBootMariaDbTemplateApplication using Java 1.8.0_191 on DESKTOP-HTHK9NH with PID 13032 (C:\SpringBootMariaDBTemplate\target\classes started by data4 in C:\SpringBootMariaDBTemplate)
+2023-10-05 16:38:11 [INFO ] k.p.SpringBootMariaDbTemplateApplication - The following 1 profile is active: "prod"
+2023-10-05 16:38:12 [INFO ] k.p.SpringBootMariaDbTemplateApplication - Started SpringBootMariaDbTemplateApplication in 2.238 seconds (JVM running for 3.051)
+2023-10-05 16:38:28 [INFO ] k.poly.controller.NoticeController - kopo.poly.controller.NoticeController.noticeList Start!
+2023-10-05 16:38:28 [INFO ] kopo.poly.service.impl.NoticeService - kopo.poly.service.impl.NoticeService.getNoticeList start!
+2023-10-05 16:38:28 [INFO ] k.poly.controller.NoticeController - kopo.poly.controller.NoticeController.noticeList End!
+2023-10-05 16:38:42 [INFO ] k.poly.controller.NoticeController - kopo.poly.controller.NoticeController.noticeReg Start!
+2023-10-05 16:38:42 [INFO ] k.poly.controller.NoticeController - kopo.poly.controller.NoticeController.noticeReg End!
+2023-10-05 16:38:48 [INFO ] k.poly.controller.NoticeController - kopo.poly.controller.NoticeController.noticeInsert Start!
+2023-10-05 16:38:48 [INFO ] k.poly.controller.NoticeController - session user_id : USER01
+2023-10-05 16:38:48 [INFO ] k.poly.controller.NoticeController - title : test
+2023-10-05 16:38:48 [INFO ] k.poly.controller.NoticeController - noticeYn : Y
+2023-10-05 16:38:48 [INFO ] k.poly.controller.NoticeController - contents : test
+2023-10-05 16:38:48 [INFO ] kopo.poly.service.impl.NoticeService - kopo.poly.service.impl.NoticeService.InsertNoticeInfo start!
+2023-10-05 16:38:48 [INFO ] k.poly.controller.NoticeController - kopo.poly.controller.NoticeController.noticeInsert End!
+2023-10-05 16:38:51 [INFO ] k.poly.controller.NoticeController - kopo.poly.controller.NoticeController.noticeList Start!
+2023-10-05 16:38:51 [INFO ] kopo.poly.service.impl.NoticeService - kopo.poly.service.impl.NoticeService.getNoticeList start!
+2023-10-05 16:38:51 [INFO ] k.poly.controller.NoticeController - kopo.poly.controller.NoticeController.noticeList End!
+2023-10-05 16:44:02 [INFO ] k.p.SpringBootMariaDbTemplateApplication - Starting SpringBootMariaDbTemplateApplication using Java 1.8.0_191 on DESKTOP-HTHK9NH with PID 4364 (C:\SpringBootMariaDBTemplate\target\classes started by data4 in C:\SpringBootMariaDBTemplate)
+2023-10-05 16:44:02 [INFO ] k.p.SpringBootMariaDbTemplateApplication - The following 1 profile is active: "prod"
+2023-10-05 16:44:04 [INFO ] k.p.SpringBootMariaDbTemplateApplication - Started SpringBootMariaDbTemplateApplication in 2.319 seconds (JVM running for 3.194)
+2023-10-05 16:44:04 [INFO ] k.poly.controller.NoticeController - kopo.poly.controller.NoticeController.noticeList Start!
+2023-10-05 16:44:04 [INFO ] kopo.poly.service.impl.NoticeService - kopo.poly.service.impl.NoticeService.getNoticeList start!
+2023-10-05 16:44:05 [INFO ] k.poly.controller.NoticeController - kopo.poly.controller.NoticeController.noticeList End!
+2023-10-05 16:44:11 [INFO ] k.poly.controller.NoticeController - kopo.poly.controller.NoticeController.noticeReg Start!
+2023-10-05 16:44:11 [INFO ] k.poly.controller.NoticeController - kopo.poly.controller.NoticeController.noticeReg End!
+2023-10-05 16:44:33 [INFO ] k.poly.controller.NoticeController - kopo.poly.controller.NoticeController.noticeInsert Start!
+2023-10-05 16:44:33 [INFO ] k.poly.controller.NoticeController - session user_id : USER01
+2023-10-05 16:44:33 [INFO ] k.poly.controller.NoticeController - title : Siuuuuuuuuuuuuuuuuuuuuuuuuuuuu
+2023-10-05 16:44:33 [INFO ] k.poly.controller.NoticeController - noticeYn : Y
+2023-10-05 16:44:33 [INFO ] k.poly.controller.NoticeController - contents : Siuuuuuuuuuuuuuuuuuuuuuuuuuuuu
+2023-10-05 16:44:33 [INFO ] kopo.poly.service.impl.NoticeService - kopo.poly.service.impl.NoticeService.InsertNoticeInfo start!
+2023-10-05 16:44:33 [INFO ] k.poly.controller.NoticeController - org.springframework.dao.DataIntegrityViolationException: 
+### Error updating database.  Cause: com.mysql.cj.jdbc.exceptions.MysqlDataTruncation: Data truncation: Data too long for column 'TITLE' at row 2
+### The error may exist in file [C:\SpringBootMariaDBTemplate\target\classes\mapper\NoticeMapper.xml]
+### The error may involve kopo.poly.persistance.mapper.INoticeMapper.insertNoticeInfo-Inline
+### The error occurred while setting parameters
+### SQL: INSERT INTO NOTICE    (     NOTICE_SEQ, TITLE, NOTICE_YN, CONTENTS, USER_ID, READ_CNT,           REG_ID, REG_DT, CHG_ID, CHG_DT    )   VALUES(    (SELECT NULLIF (MAX(A.NOTICE_SEQ),0)+1 FROM NOTICE A),    ?, ?, ?, ?, 0, ?, SYSDATE(), ?, SYSDATE()   )
+### Cause: com.mysql.cj.jdbc.exceptions.MysqlDataTruncation: Data truncation: Data too long for column 'TITLE' at row 2
+; Data truncation: Data too long for column 'TITLE' at row 2; nested exception is com.mysql.cj.jdbc.exceptions.MysqlDataTruncation: Data truncation: Data too long for column 'TITLE' at row 2
+2023-10-05 16:44:33 [INFO ] k.poly.controller.NoticeController - kopo.poly.controller.NoticeController.noticeInsert End!
+2023-10-05 16:44:39 [INFO ] k.poly.controller.NoticeController - kopo.poly.controller.NoticeController.noticeList Start!
+2023-10-05 16:44:39 [INFO ] kopo.poly.service.impl.NoticeService - kopo.poly.service.impl.NoticeService.getNoticeList start!
+2023-10-05 16:44:39 [INFO ] k.poly.controller.NoticeController - kopo.poly.controller.NoticeController.noticeList End!
+2023-10-05 16:44:41 [INFO ] k.poly.controller.NoticeController - kopo.poly.controller.NoticeController.noticeReg Start!
+2023-10-05 16:44:41 [INFO ] k.poly.controller.NoticeController - kopo.poly.controller.NoticeController.noticeReg End!
+2023-10-05 16:44:48 [INFO ] k.poly.controller.NoticeController - kopo.poly.controller.NoticeController.noticeInsert Start!
+2023-10-05 16:44:48 [INFO ] k.poly.controller.NoticeController - session user_id : USER01
+2023-10-05 16:44:48 [INFO ] k.poly.controller.NoticeController - title : Siuuuuuuuuuu
+2023-10-05 16:44:48 [INFO ] k.poly.controller.NoticeController - noticeYn : Y
+2023-10-05 16:44:48 [INFO ] k.poly.controller.NoticeController - contents : Siuuuuuuuuu
+2023-10-05 16:44:48 [INFO ] kopo.poly.service.impl.NoticeService - kopo.poly.service.impl.NoticeService.InsertNoticeInfo start!
+2023-10-05 16:44:48 [INFO ] k.poly.controller.NoticeController - kopo.poly.controller.NoticeController.noticeInsert End!
+2023-10-05 16:44:48 [INFO ] k.poly.controller.NoticeController - kopo.poly.controller.NoticeController.noticeList Start!
+2023-10-05 16:44:48 [INFO ] kopo.poly.service.impl.NoticeService - kopo.poly.service.impl.NoticeService.getNoticeList start!
+2023-10-05 16:44:48 [INFO ] k.poly.controller.NoticeController - kopo.poly.controller.NoticeController.noticeList End!

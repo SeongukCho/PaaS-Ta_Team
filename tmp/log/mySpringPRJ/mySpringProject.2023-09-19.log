@@ -1,0 +1,7 @@
+2023-09-19 16:04:20 [INFO ] k.p.SpringBootMariaDbTemplateApplication - Starting SpringBootMariaDbTemplateApplication using Java 1.8.0_191 on DESKTOP-HTHK9NH with PID 9880 (C:\SpringBootMariaDBTemplate\target\classes started by data4 in C:\SpringBootMariaDBTemplate)
+2023-09-19 16:04:20 [INFO ] k.p.SpringBootMariaDbTemplateApplication - The following 1 profile is active: "prod"
+2023-09-19 16:04:22 [INFO ] k.p.SpringBootMariaDbTemplateApplication - Starting SpringBootMariaDbTemplateApplication using Java 1.8.0_191 on DESKTOP-HTHK9NH with PID 9880 (C:\SpringBootMariaDBTemplate\target\classes started by data4 in C:\SpringBootMariaDBTemplate)
+2023-09-19 16:04:22 [INFO ] k.p.SpringBootMariaDbTemplateApplication - The following 1 profile is active: "prod"
+2023-09-19 16:04:24 [INFO ] k.p.SpringBootMariaDbTemplateApplicationTests - Starting SpringBootMariaDbTemplateApplicationTests using Java 1.8.0_191 on DESKTOP-HTHK9NH with PID 10708 (started by data4 in C:\SpringBootMariaDBTemplate)
+2023-09-19 16:04:24 [INFO ] k.p.SpringBootMariaDbTemplateApplicationTests - The following 1 profile is active: "prod"
+2023-09-19 16:04:26 [INFO ] k.p.SpringBootMariaDbTemplateApplicationTests - Started SpringBootMariaDbTemplateApplicationTests in 2.574 seconds (JVM running for 3.808)

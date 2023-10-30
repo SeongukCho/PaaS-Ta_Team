@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- JAVA와 연결할 Mapper 파일 설정 -->
+<mapper namespace="kopo.poly.persistance.mapper.IMailMapper">
+
+	<!-- 메일 리스트 쿼리 -->
+	<select id="getMailList" resultType="MailDTO">
+		SELECT MAIL_SEQ, TO_MAIL, TITLE, CONTENTS, SEND_TIME
+	      FROM MAIL_INFO
+	 	 ORDER BY SEND_TIME DESC
+	</select>
+
+	<insert id="insertMailInfo" parameterType="MailDTO">
+		INSERT INTO MAIL_INFO
+			(
+			 	MAIL_SEQ, TO_MAIL, TITLE, CONTENTS, SEND_TIME
+			 )
+		VALUES
+		    (
+		     	(SELECT NVL(MAX(MAIL_SEQ), 0) + 1 FROM MAIL_INFO),
+				#{toMail}, #{title}, #{contents}, SYSDATE)
+	</insert>
+</mapper>
