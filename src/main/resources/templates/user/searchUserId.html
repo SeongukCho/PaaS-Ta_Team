@@ -19,9 +19,9 @@
             $("#btnSearchUserId").on("click", function () {
                 let f = document.getElementById("f"); // form 태그
 
-                if (f.user_name.value === "") {
+                if (f.userName.value === "") {
                     alert("이름을 입력하세요.");
-                    f.user_name.focus();
+                    f.userName.focus();
                     return;
                 }
 
@@ -52,7 +52,7 @@
                 <div class="divTableCell">이름
                 </div>
                 <div class="divTableCell">
-                    <input type="text" name="user_name" id="user_name" style="width:95%"/>
+                    <input type="text" name="userName" id="userName" style="width:95%"/>
                 </div>
             </div>
             <div class="divTableRow">

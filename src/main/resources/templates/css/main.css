@@ -1,0 +1,80 @@
+        .hd_login {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+        }
+
+        .hd_login span {
+            margin-left: 10px;
+            /* 각 링크 사이의 간격 조절 */
+            padding: 5px 10px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .hd_login span:hover {
+            background-color: #f0f0f0;
+            /* 호버 시 배경색 변경 */
+        }
+
+        .login,
+        .signup,
+        .sitemap,
+        .english {
+            background-color: #3498db;
+            /* 각 링크의 배경색 지정 */
+            color: #fff;
+            /* 텍스트 색상 지정 */
+        }
+
+        .separator {
+            margin-left: 0;
+            border: none;
+            /* 구분 기호에는 테두리 없애기 */
+        }
+
+        /* 링크 사이의 여백 제거 */
+        .hd_login span+span {
+            margin-left: 5px;
+        }
+
+        /* 첫 번째 링크에 왼쪽 여백 추가 */
+        .hd_login span:first-child {
+            margin-left: 0;
+        }
+
+        /* 두 번째 링크 이후의 링크에 왼쪽 여백 및 테두리 없애기 */
+        .hd_login span:not(:first-child) {
+            border-left: none;
+        }
+
+        @import url('https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Nanum+Myeongjo:wght@700&display=swap');
+
+        .main-nav-font ul {
+            font-family: 'Nanum Myeongjo', serif;
+            font-size: 1.5em;
+        }
+
+        .item.active {
+            text-align: center;
+            height: 60vh;
+            /* 뷰포트 높이에 따라 조절하세요 */
+        }
+
+        .slider_overlay {
+            display: inline-block;
+            vertical-align: middle;
+        }
+
+        .slider_overlay img {
+            max-width: 100%;
+            max-height: 100%;
+            width: auto;
+            height: auto;
+        }
+        
+        button[type="button"] {
+        border: none;
+        background-color: transparent;
+        cursor: pointer;
+    }

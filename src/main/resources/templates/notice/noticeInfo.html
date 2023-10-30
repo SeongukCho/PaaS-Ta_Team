@@ -9,7 +9,7 @@
     <script th:inline="javascript">
         /*<![CDATA[*/
         const session_user_id = [[${session.SESSION_USER_ID}]]; // Controller에서 받은 세션에 저장된 값
-        const user_id = [[${rDTO.userId}]]; // 공지사항 게시글 작성자 아이디
+        const userId = [[${rDTO.userId}]]; // 공지사항 게시글 작성자 아이디
         const nSeq = [[${rDTO.noticeSeq}]]; // 현재 글번호, 자바에서 받을 변수들은 자바스크립트 변수로 저장하면 편함
 
         // HTML로딩이 완료되고, 실행됨
@@ -32,7 +32,7 @@
 
         //수정하기
         function doEdit() {
-            if (session_user_id === user_id) {
+            if (session_user_id === userId) {
                 location.href = "/notice/noticeEditInfo?nSeq=" + nSeq;
 
             } else if (session_user_id === "") {
@@ -46,7 +46,7 @@
 
         //삭제하기
         function doDelete() {
-            if (session_user_id === user_id) {
+            if (session_user_id === userId) {
                 if (confirm("작성한 글을 삭제하시겠습니까?")) {
 
                     // Ajax 호출해서 글 삭제하기

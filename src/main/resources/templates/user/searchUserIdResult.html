@@ -13,10 +13,10 @@
                 location.href = "/user/login";
             })
             let msg = '';
-            let user_id = /*[[${rDTO.user_id}]]*/ '';
-            let user_name = /*[[${rDTO.user_name}]]*/ '';
-            if (user_id.length > 0) {
-                msg = user_name + " 회원님의 아이디는 "+user_id+"입니다.";
+            let userId = /*[[${rDTO.userId}]]*/ '';
+            let userName = /*[[${rDTO.userName}]]*/ '';
+            if (userId.length > 0) {
+                msg = userName + " 회원님의 아이디는 "+userId+"입니다.";
             } else {
                 msg = "아이디가 존재하지 않습니다.";
             }

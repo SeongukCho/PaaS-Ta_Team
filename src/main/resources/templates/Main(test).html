@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+
+    <title>마음을 나누는 교실</title>
+
+    <!--    Google Fonts-->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800" rel="stylesheet" type="text/css">
+    <!--Fontawesom-->
+    <link rel="stylesheet" href="/css/font-awesome.min.css">
+    <!--Animated CSS-->
+    <link rel="stylesheet" type="text/css" href="/css/animate.min.css">
+    <!--    main CSS-->
+    <link rel="stylesheet" type="text/css" href="/css/main.css">
+    <!-- jQuery -->
+    <script type="text/javascript" src="/js/jquery-3.6.0.min.js"></script>
+    <!--Main JavaScript            -->
+    <script src="/js/main.js"></script>
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <!--Bootstrap Carousel-->
+    <link rel="stylesheet" type="text/css" href="/css/carousel.css"/>
+    <link rel="stylesheet" href="/css/isotope/style.css">
+    <!--Main Stylesheet-->
+    <link rel="stylesheet" href="/css/style.css">
+    <!--Responsive Framework-->
+    <link rel="stylesheet" href="/css/responsive.css">
+
+    <script type="text/javascript">
+        // HTML로딩이 완료되고, 실행됨
+        $(document).ready(function () {
+            // 홈페이지 메인
+            $("#home").on("click", function () {
+                location.href = "/Main(test)";
+            })
+            // 회원가입
+            $("#btnUserReg").on("click", function () {
+                location.href = "/user/userRegForm";
+            })
+
+            // 아이디 찾기
+            $("#btnLogin").on("click", function () {
+                location.href = "/user/login";
+            })
+
+            // 소개 - 인사말
+            $("#Introduction").on("click", function () {
+                location.href = "/main/Introduction";
+            })
+            // 소개 - 개요
+            $("#Overview").on("click", function () {
+                location.href = "/main/Overview";
+            })
+
+            // 알림마당 - 공지사항
+            $("#notice").on("click", function () {
+                location.href = "/notice/noticeList";
+            })
+
+            // 알림마당 - 상담일정
+            $("#CTschedule").on("click", function () {
+                location.href = "/main/CTschedule";
+            })
+            // 알림마당 - 상담일정
+            $("#newsRelease").on("click", function () {
+                location.href = "/main/newsRelease";
+            })
+
+            // 지역센터 - 지역 상담센터
+            $("#CTcenter").on("click", function () {
+                location.href = "/main/CTcenter";
+            })
+            // 지역센터 - 경기교권보호지원센터
+            $("#HelpCenter").on("click", function () {
+                location.href = "/main/HelpCenter";
+            })
+
+            // 지역센터 - 교원치유지원센터
+            $("#cureCenter").on("click", function () {
+                location.href = "/main/cureCenter";
+            })
+
+
+            // 온라인상담 - 이용방법
+            $("#manual").on("click", function () {
+                location.href = "/main/manual";
+            })
+
+
+            // 온라인상담 - 예약하기
+            $("#appointment").on("click", function () {
+                location.href = "/main/appointment";
+            })
+
+            // 온라인상담 - 참가하기
+            $("#attend").on("click", function () {
+                location.href = "/main/attend";
+            })
+        })
+    </script>
+
+</head>
+
+<body data-spy="scroll" data-target="#header">
+
+<!--Start Hedaer Section-->
+<section id="header">
+    <div class="header-area">
+        <div class="top_header">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 zero_mp"></div>
+                    <!--End of col-md-4-->
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 zero_mp">
+
+                    </div>
+                    <!--End of col-md-4-->
+                    <div class="col-md-4">
+                        <div class="hd_login hd_flex_item text-right">
+                            <span class="g1"><button id="btnLogin" type="button" class="w-btn w-btn-indigo">
+                                로그인</button></span>
+                            <span class="g1"> <button id="btnUserReg" type="button" class="w-btn w-btn-indigo">
+                                회원가입</button></span>
+                        </div>
+                    </div>
+
+
+                </div>
+                <!--End of col-md-4-->
+            </div>
+            <!--End of row-->
+        </div>
+        <!--End of container-->
+    </div>
+    <!--End of top header-->
+    <div class="header_menu text-center" data-spy="affix" data-offset-top="50" id="nav">
+        <div class="container">
+            <nav class="navbar navbar-default zero_mp ">
+                <!-- 왼쪽 상단 로고 -->
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                            data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand custom_navbar-brand" href="#" id="home"><img src="/img/logo.png"></a>
+                </div>
+                <!--End of navbar-header-->
+
+
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse zero_mp" id="bs-example-navbar-collapse-1">
+                    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+
+                    <div class="main-nav-font">
+                        <ul class="nav navbar-nav navbar-right main_menu">
+<!--                            <li>-->
+<!--                                홈<span class="sr-only">(current)</span>-->
+<!--                            </li>-->
+                            <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" role="button"
+                                                             data-bs-toggle="dropdown" aria-expanded="false">
+                                소개
+                            </a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" id="Introduction">인사말</a></li>
+                                    <li><a class="dropdown-item" id="Overview">개요</a></li>
+                                </ul>
+                            </li>
+
+
+                            <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" role="button"
+                                                             data-bs-toggle="dropdown" aria-expanded="false">
+                                알림마당
+                            </a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" id="notice">공지사항</a></li>
+                                    <li><a class="dropdown-item" id="CTschedule">상담 일정</a></li>
+                                    <li><a class="dropdown-item" id="newsRelease">보도자료</a></li>
+                                </ul>
+                            </li>
+
+                            <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" role="button"
+                                                             data-bs-toggle="dropdown" aria-expanded="false">지역센터</a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" id="rgCTcenter">지역 상담센터</a></li>
+                                    <li><a class="dropdown-item" id="rgHelpCenter">경기교권 보호 지원센터</a></li>
+                                    <li><a class="dropdown-item" id="rgCureCenter">교원치유지원센터</a></li>
+                                </ul>
+                            </li>
+
+
+                            <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" role="button"
+                                                             data-bs-toggle="dropdown" aria-expanded="false">온라인 상담</a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" id="manual">이용방법</a></li>
+                                    <li><a class="dropdown-item" id="appointment">예약</a></li>
+                                    <li><a class="dropdown-item" id="attend">참가하기</a></li>
+                                </ul>
+                            </li>
+
+
+                            <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" role="button"
+                                                             data-bs-toggle="dropdown" aria-expanded="false">
+                                고객센터
+                            </a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="#">문의 남기기</a></li>
+                                    <li><a class="dropdown-item" href="#">자주하는 질문</a></li>
+                                </ul>
+                            </li>
+
+                        </ul>
+                    </div>
+
+
+                </div>
+                <!-- /.navbar-collapse -->
+            </nav>
+            <!--End of nav-->
+        </div>
+        <!--End of container-->
+    </div>
+    <!--End of header menu-->
+</section>
+<!--End of Hedaer Section-->
+
+
+<!--Start of slider section-->
+<section id="slider">
+    <div id="carousel-example-generic" class="carousel slide carousel-fade" data-ride="carousel" data-interval="3000">
+        <!-- Indicators -->
+        <ol class="carousel-indicators">
+            <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+            <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+        </ol>
+
+        <!-- Wrapper for slides -->
+        <div class="carousel-inner" role="listbox">
+            <div class="item active">
+                <div class="slider_overlay">
+                    <img src="/img/main_Imag1.jpg" alt="...">
+                    <div class="carousel-caption">
+                        <!--
+                        <div class="slider_text">
+                            <h3>Protect</h3>
+                            <h2>nature the environment</h2>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                            <a href="" class="custom_btn">Read More</a>
+                        </div>
+-->
+                    </div>
+                </div>
+            </div>
+            <!--End of item With Active-->
+            <div class="item">
+                <div class="slider_overlay">
+                    <img src="/img/main_Imag2.jpg" alt="...">
+                    <div class="carousel-caption">
+
+                        <div class="slider_text">
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <!--End of Item-->
+
+        </div>
+        <!--End of Carousel Inner-->
+    </div>
+</section>
+<!--end of slider section-->
+
+
+<!--Start of welcome section-->
+<section id="welcome">
+    <div class="container">
+        <div class="row">
+
+            <div class="col-md-12">
+                <div class="wel_header">
+                    <h2>지원 센터 바로가기</h2>
+                </div>
+            </div>
+        </div>
+        <!--End of row-->
+        <div class="row">
+            <div class="col-md-2"></div>
+            <div class="col-md-3">
+                <div class="item" id="CTcenter">
+                    <div class="single_item">
+                        <div class="item_list">
+                            <div class="welcome_icon">
+                                <i class="fa fa-leaf"></i>
+                            </div>
+                            <h4>상담센터</h4>
+                            <p>지역 전체 상담센터</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--End of col-md-3-->
+            <div class="col-md-3">
+                <div class="item" id="HelpCenter">
+                    <div class="single_item">
+                        <div class="item_list">
+                            <div class="welcome_icon">
+                                <i class="fa fa-refresh"></i>
+                            </div>
+                            <h4>경기교권 보호<br>지원센터</h4>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--End of col-md-3-->
+            <div class="col-md-3">
+                <div class="item" id="cureCenter">
+                    <div class="single_item">
+                        <div class="item_list">
+                            <div class="welcome_icon">
+                                <i class="fa fa-tint"></i>
+                            </div>
+                            <h4>교원 치유<br>지원센터</h4>
+                            <p></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--End of col-md-3-->
+
+        </div>
+        <!--End of row-->
+
+
+        <br>
+        <br>
+        <br>
+        <hr>
+        <br>
+        <br>
+        <br>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="wel_header">
+                    <h2>자가진단 바로가기</h2>
+                </div>
+            </div>
+        </div>
+
+
+        <!--End of row-->
+        <div class="row">
+            <div class="col-md-2"></div>
+            <div class="col-md-3">
+                <div class="item">
+                    <div class="single_item">
+                        <div class="item_list">
+                            <a href="https://www.mentalhealth.go.kr/portal/mdexmn/selectMdexmnList.do?mdexmnId=100"
+                               style="display: inline-block; line-height: 100px; vertical-align: middle;">
+                                <img src="/img/%EA%B5%AD%EA%B0%80%EC%A0%95%EC%8B%A0%EA%B1%B4%EA%B0%95%EC%A0%95%EB%B3%B4%ED%8F%AC%ED%84%B8_%EB%A1%9C%EA%B3%A0.jpg"
+                                     alt="정신건강복지센터" style="vertical-align: middle;">
+                            </a>
+                            <h4>정신건강복지센터</h4>
+                            <p>내 지역 <b>정신건강복지센터</b></p>
+                            <p>누리집 자가검진시스템</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--End of col-md-3-->
+            <div class="col-md-3">
+                <div class="item">
+                    <div class="single_item">
+                        <div class="item_list">
+                            <a href="https://nct.go.kr/distMental/rating/rating02_2.do"
+                               style="display: inline-block; line-height: 100px; vertical-align: middle;">
+                                <img src="/img/%EA%B5%AD%EB%AF%BC%EA%B3%81%EC%97%90%20%EB%A7%88%EC%9D%8C%ED%97%88%EA%B7%B8_%EB%A1%9C%EA%B3%A0.jpg"
+                                     alt="국민곁에 마음허그" style="vertical-align: middle;">
+                            </a>
+                            <h4>국민곁에 마음허그</h4>
+                            <p><b>국가트라우마센터</b> 누리집</p>
+                            <p>자가진단시스템</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--End of col-md-3-->
+            <div class="col-md-3">
+                <div class="item">
+                    <div class="single_item">
+                        <div class="item_list">
+                            <a href="https://forteacher.kedi.re.kr/web/contents/view.do?mId=41"
+                               style="display: inline-block; line-height: 100px; vertical-align: middle;">
+                                <img src="/img/%EA%B5%90%EC%9B%90%EC%B9%98%EC%9C%A0%EC%A7%80%EC%9B%90%EC%84%BC%ED%84%B0_%EB%A1%9C%EA%B3%A0.jpg"
+                                     alt="교원치유지원센터" style="vertical-align: middle;">
+                            </a>
+                            <h4>교원치유<br>지원센터</h4>
+                            <p><b>교원치유지원센터</b> 누리집</p>
+                            <p>교사웰빙 진단</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--End of col-md-3-->
+
+        </div>
+    </div>
+    <!--End of container-->
+</section>
+<!--end of welcome section-->
+
+
+<!--Start of footer-->
+<section id="footer">
+    <div class="container">
+        <div class="row text-center">
+            <div class="col-md-6">
+                <div class="copyright">
+                    <p>@ 2016 - Design By <span><a href="">&#9798;</a></span></p>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="designer">
+                    <p>A Design By <a href="#">XpeedStudio</a></p>
+                </div>
+            </div>
+        </div>
+        <!--End of row-->
+    </div>
+    <!--End of container-->
+</section>
+<!--End of footer-->
+
+
+<!--Scroll to top-->
+<a href="#" id="back-to-top" title="Back to top">&uarr;</a>
+<!--End of Scroll to top-->
+
+
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<!-- <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js'></script>-->
+<script src="/js/jquery-1.12.3.min.js"></script>
+
+<!--Counter UP Waypoint-->
+<script src="/js/waypoints.min.js"></script>
+<!--Counter UP-->
+<script src="/js/jquery.counterup.min.js"></script>
+
+<script>
+    //for counter up
+    $('.counter').counterUp({
+        delay: 10,
+        time: 1000
+    });
+</script>
+
+<!--Gmaps-->
+<script src="/js/gmaps.min.js"></script>
+<script type="text/javascript">
+    var map;
+    $(document).ready(function () {
+        map = new GMaps({
+            el: '#map',
+            lat: 23.6911078,
+            lng: 90.5112799,
+            zoomControl: true,
+            zoomControlOpt: {
+                style: 'SMALL',
+                position: 'LEFT_BOTTOM'
+            },
+            panControl: false,
+            streetViewControl: false,
+            mapTypeControl: false,
+            overviewMapControl: false,
+            scrollwheel: false,
+        });
+
+
+        map.addMarker({
+            lat: 23.6911078,
+            lng: 90.5112799,
+            title: 'Office',
+            details: {
+                database_id: 42,
+                author: 'Foysal'
+            },
+            click: function (e) {
+                if (console.log)
+                    console.log(e);
+                alert('You clicked in this marker');
+            },
+            mouseover: function (e) {
+                if (console.log)
+                    console.log(e);
+            }
+        });
+    });
+</script>
+<!--Google Maps API-->
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBjxvF9oTfcziZWw--3phPVx1ztAsyhXL4"></script>
+
+
+<!--Isotope-->
+<script src="/js/isotope/min/scripts-min.js"></script>
+<script src="/js/isotope/cells-by-row.js"></script>
+<script src="/js/isotope/isotope.pkgd.min.js"></script>
+<script src="/js/isotope/packery-mode.pkgd.min.js"></script>
+<script src="/js/isotope/scripts.js"></script>
+
+
+<!--Back To Top-->
+<script src="/js/backtotop.js"></script>
+
+
+<!--JQuery Click to Scroll down with Menu-->
+<script src="/js/jquery.localScroll.min.js"></script>
+<script src="/js/jquery.scrollTo.min.js"></script>
+<!--WOW With Animation-->
+<script src="/js/wow.min.js"></script>
+<!--WOW Activated-->
+<script>
+    new WOW().init();
+</script>
+
+
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="/js/bootstrap.min.js"></script>
+<!-- Custom JavaScript-->
+<script src="/js/main.js"></script>
+</body>
+</html>
