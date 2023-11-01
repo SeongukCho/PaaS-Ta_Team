@@ -9,7 +9,7 @@
 
         // HTML로딩이 완료되고, 실행됨
         $(document).ready(function () {
-            let f= document.getElementById("f"); // form 태그
+            let f = document.getElementById("f"); // form 태그
 
             // 회원가입
             $("#btnUserReg").on("click", function () { // 버튼 클릭했을때, 발생되는 이벤트 생성함(onclick 이벤트와 동일함)
@@ -39,7 +39,7 @@
                 return;
             }
 
-            if (f.password.value ==="") {
+            if (f.password.value === "") {
                 alert("비밀번호를 입력하세요.");
                 f.password.focus();
                 return;
@@ -55,7 +55,7 @@
 
                     if (json.result === 1) { // 로그인 성공
                         alert(json.msg); // 메시지 띄우기
-                        location.href = "/user/loginResult"; // 로그인 성공 페이지로 이동
+                        location.href = "main"; // 메인 페이지로 이동
 
                     } else { // 로그인 실패
                         alert(json.msg); // 메시지 띄우기
@@ -70,31 +70,34 @@
 <h2>로그인하기</h2>
 <hr/>
 <br/>
-<form action="/user/loginProc" method="post" onsubmit="btnLogin()" id="f">
-    <div class="divTable minimalistBlack">
-        <div class="divTableBody">
-            <div class="divTableRow">
-                <div class="divTableCell">아이디
-                </div>
-                <div class="divTableCell">
-                    <input type="text" name="userId" id="userId" style="width:95%"/>
-                </div>
+<div class="container">
+    <div class="wrapper">
+        <div class="title"><span>로그인</span></div>
+        <form action="/user/insertUserInfo" method="post" onsubmit="doSubmit(this)" id="f">
+            <div class="row">
+                <i class="fas fa-user"></i>
+                <input type="text" name="userId" id="userId" placeholder="아이디">
             </div>
-            <div class="divTableRow">
-                <div class="divTableCell">비밀번호
-                </div>
-                <div class="divTableCell">
-                    <input type="password" name="password" id="password" style="width:95%"/>
-                </div>
+            <div class="row">
+                <i class="fas fa-lock"></i>
+                <input type="password" name="password" id="password" placeholder="비밀번호">
             </div>
-        </div>
+
+            <div class="find-btn">
+                <button id="btnLogin" class="btn btn-success" style="background-color: #20a288" type="button">로그인
+                </button>
+                <button id="btnUserReg" class="btn btn-success" style="background-color: #20a288" type="button">회원가입
+                </button>
+                <button id="btnSearchUserId" class="btn btn-success" style="background-color: #20a288" type="button">아이디
+                    찾기
+                </button>
+                <button id="btnSearchPassword" class="btn btn-success" style="background-color: #20a288" type="button">
+                    비밀번호 찾기
+                </button>
+            </div>
+        </form>
     </div>
-    <div>
-        <button id="btnLogin" type="button">로그인</button>
-        <button id="btnUserReg" type="button">회원가입</button>
-        <button id="btnSearchUserId" type="button">아이디 찾기</button>
-        <button id="btnSearchPassword" type="button">비밀번호 찾기</button>
-    </div>
-</form>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

@@ -34,9 +34,14 @@
     <script type="text/javascript">
         // HTML로딩이 완료되고, 실행됨
         $(document).ready(function () {
-            // 홈페이지 메인
+
+            // 교원치유지원센터
+            $("#rgcureCenter").on("click", function () {
+                location.href = "/centermain";
+            })
+
             $("#home").on("click", function () {
-                location.href = "/main/main";
+                location.href = "/main";
             })
             // 회원가입
             $("#btnUserReg").on("click", function () {
@@ -82,7 +87,7 @@
 
             // 지역센터 - 교원치유지원센터
             $("#cureCenter").on("click", function () {
-                location.href = "/main/cureCenter";
+                location.href = "/centermain";
             })
 
 

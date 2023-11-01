@@ -13,8 +13,8 @@
                 location.href = "/user/login";
             })
             let msg = '';
-            let userId = /*[[${rDTO.userId}]]*/ '';
-            let userName = /*[[${rDTO.userName}]]*/ '';
+            let userId = [[${rDTO.userId}]];
+            let userName = [[${rDTO.userName}]];
             if (userId.length > 0) {
                 msg = userName + " 회원님의 아이디는 "+userId+"입니다.";
             } else {

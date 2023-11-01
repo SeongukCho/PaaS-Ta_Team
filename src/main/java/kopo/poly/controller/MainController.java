@@ -15,4 +15,10 @@ public class MainController {
         log.info(this.getClass().getName() + ".main Start");
         return "Main";
     }
+
+    @GetMapping(value = "/centermain")
+    public String centermain() {
+        log.info(this.getClass().getName() + ".centermain Start");
+        return "centermain";
+    }
 }
