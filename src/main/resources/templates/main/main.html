@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <title>마음을 나누는 교실</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=yes">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <script type="text/javascript" src="/js/nav/jquery-1.9.1.min.js"></script>
+    <script type="text/javascript" src="/js/nav/jquery-ui.js"></script>
+    <script type="text/javascript" src="/js/nav/menu.js"></script>
+    <script type="text/javascript" src="/js/nav/common.js"></script>
+    <link rel="stylesheet" href="/css/nav/ui_content.css">
+    <link rel="stylesheet" type="text/css" href="/css/nav/common.css" />
+    <link rel="stylesheet" href="/css/nav/carousel.css">
+    <link rel="stylesheet" href="/css/nav/responsive.css">
+    <link rel="stylesheet" href="/css/nav/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/nav/style.css">
+    <link rel="stylesheet" href="/css/nav/font-awesome.min.css">
+</head>
+
+<body>
+
+<!--    &lt;!&ndash; skip navi &ndash;&gt;-->
+<!--    <ul id="skip_navi">-->
+<!--        <li><a href="#content">본문 바로가기</a></li>-->
+<!--        <li><a href="#gnb">메인메뉴 바로가기</a></li>-->
+<!--    </ul>-->
+<!--    &lt;!&ndash; //skip navi &ndash;&gt;-->
+
+    <div id="wrapper" class="main">
+        <!-- header -->
+        <header id="header">
+            <div class="head_box">
+                <h1 class="logo"><img src="/img/logo.png"></h1>
+                <button type="button" class="btnMenu"><span>메뉴</span></button>
+                <!-- gnb -->
+                <nav id="gnb">
+                    <ul class="gnb">
+                        <li>
+                            <a href="#"><span>소개</span></a>
+                            <ul>
+                                <li><a href="#">인사말</a></li>
+                                <li><a href="#">개요</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="/notice/noticeList"><span>공지사항</span></a>
+                            <ul>
+                                <li><a href="/notice/noticeList">공지사항</a></li>
+                                <li><a href="#">상담일정</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="#"><span>지역센터</span></a>
+                            <ul>
+                                <li><a href="#">지역 상담센터</a></li>
+                                <li><a href="#">경기 보호지원센터</a></li>
+                                <li><a href="#">교원 치유지원센터</a></li>
+                            </ul>
+                        </li>
+                        <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</li>
+                        <li>
+                            <a href="#"><span>온라인 상담</span></a>
+                            <ul>
+                                <li><a href="#">이용방법</a></li>
+                                <li><a href="#">예약</a></li>
+                                <li><a href="#">참가하기</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="#"><span>고객센터</span></a>
+                            <ul>
+                                <li><a href="#">고객센터</a></li>
+                                <li><a href="#">FAQ</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </nav>
+                <!-- //gnb -->
+                <div class="topGlob">
+                    <ul>
+                        <li><a href="/user/userRegForm">회원가입</a></li>
+                        <li><a href="/user/login">로그인</a></li>
+                    </ul>
+                </div>
+
+                <nav id="mGnb">
+                    <button type="button" class="btnClose"><span>닫기</span></button>
+                    <div class="mbTop">
+                        <div class="mlogo"><a href="#"><img src="/img/logo.png"></a></div>
+                        <ul>
+                            <li><a href="/user/userRegForm">회원가입</a></li>
+                            <li><a href="/user/login">로그인</a></li>
+                        </ul>
+                    </div>
+                    <ul>
+                        <li class="has-sub">
+                            <a href="#">소개</a>
+                            <ul>
+                                <li><a href="#">인사말</a>
+                                </li>
+                                <li><a href="#">개요</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="has-sub">
+                            <a href="/notice/noticeList">공지사항</a>
+                            <ul>
+                                <li><a href="/notice/noticeList">공지사항</a>
+                                </li>
+                                <li><a href="#">상담일정</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="has-sub">
+                            <a href="#">지역센터</a>
+                            <ul>
+                                <li><a href="#">지역 상담센터</a>
+                                </li>
+                                <li><a href="#">경기 보호지원센터</a>
+                                </li>
+                                <li><a href="#">교원 치유지원센터</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="has-sub">
+                            <a href="#">온라인 상담</a>
+                            <ul>
+                                <li><a href="#">이용방법 </a>
+                                </li>
+                                <li><a href="#">예약</a>
+                                </li>
+                                <li><a href="#">참가하기</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="has-sub">
+                            <a href="#">고객센터</a>
+                            <ul>
+                                <li><a href="#">문의 남기기</a>
+                                </li>
+                                <li><a href="#">참가하기</a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </nav>
+                <div class="fix_bg"></div>
+            </div>
+        </header>
+        <!-- //header -->
+    </div>
+    <!--Start of slider section-->
+    <section id="slider">
+        <div id="carousel-example-generic" class="carousel slide carousel-fade" data-ride="carousel" data-interval="3000">
+            <!-- Indicators -->
+            <ol class="carousel-indicators">
+                <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+                <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+            </ol>
+            <!-- Wrapper for slides -->
+            <div class="carousel-inner" role="listbox">
+                <div class="item active">
+                    <div class="slider_overlay">
+                        <img src="/img/main_Imag1.jpg" alt="..." class="slider-image">
+                        <div class="carousel-caption">
+                        </div>
+                    </div>
+                </div>
+                <!--End of item With Active-->
+                <div class="item">
+                    <div class="slider_overlay">
+                        <img src="/img/main_Imag2.jpg" alt="...">
+                        <div class="carousel-caption">
+                            <div class="slider_text">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--End of Item-->
+            </div>
+            <!--End of Carousel Inner-->
+        </div>
+    </section>
+    <!--end of slider section-->
+
+    
+    
+
+    <!--Start of welcome section-->
+    <section id="welcome">
+        <div class="container">
+            <div class="row">
+
+                <div class="col-md-12">
+                    <div class="wel_header">
+                        <h2>지원 센터 바로가기</h2>
+                    </div>
+                </div>
+            </div>
+            <!--End of row-->
+            <div class="row">
+                <div class="col-md-2"></div>
+                <div class="col-md-3">
+                    <div class="item" id="CTcenter">
+                        <div class="single_item">
+                            <div class="item_list">
+                                <div class="welcome_icon">
+                                    <i class="fa fa-leaf"></i>
+                                </div>
+                                <h4>상담센터</h4>
+                                <p>지역 전체 상담센터</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--End of col-md-3-->
+                <div class="col-md-3">
+                    <div class="item" id="HelpCenter">
+                        <div class="single_item">
+                            <div class="item_list">
+                                <div class="welcome_icon">
+                                    <i class="fa fa-refresh"></i>
+                                </div>
+                                <h4>경기교권 보호<br>지원센터</h4>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--End of col-md-3-->
+                <div class="col-md-3">
+                    <div class="item" id="cureCenter">
+                        <div class="single_item">
+                            <div class="item_list">
+                                <div class="welcome_icon">
+                                    <i class="fa fa-tint"></i>
+                                </div>
+                                <h4>교원 치유<br>지원센터</h4>
+                                <p></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--End of col-md-3-->
+
+            </div>
+            <!--End of row-->
+
+
+            <br>
+            <br>
+            <br>
+            <hr>
+            <br>
+            <br>
+            <br>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="wel_header">
+                        <h2>자가진단 바로가기</h2>
+                    </div>
+                </div>
+            </div>
+
+
+            <!--End of row-->
+            <div class="row">
+                <div class="col-md-2"></div>
+                <div class="col-md-3">
+                    <div class="item">
+                        <div class="single_item">
+                            <div class="item_list">
+                                <a href="https://www.mentalhealth.go.kr/portal/mdexmn/selectMdexmnList.do?mdexmnId=100" style="display: inline-block; line-height: 100px; vertical-align: middle;">
+                                    <img src="/img/%EA%B5%AD%EA%B0%80%EC%A0%95%EC%8B%A0%EA%B1%B4%EA%B0%95%EC%A0%95%EB%B3%B4%ED%8F%AC%ED%84%B8_%EB%A1%9C%EA%B3%A0.jpg" alt="정신건강복지센터" style="vertical-align: middle;">
+                                </a>
+                                <h4>정신건강복지센터</h4>
+                                <p>내 지역 <b>정신건강복지센터</b></p>
+                                <p>누리집 자가검진시스템</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--End of col-md-3-->
+                <div class="col-md-3">
+                    <div class="item">
+                        <div class="single_item">
+                            <div class="item_list">
+                                <a href="https://nct.go.kr/distMental/rating/rating02_2.do" style="display: inline-block; line-height: 100px; vertical-align: middle;">
+                                    <img src="/img/%EA%B5%AD%EB%AF%BC%EA%B3%81%EC%97%90%20%EB%A7%88%EC%9D%8C%ED%97%88%EA%B7%B8_%EB%A1%9C%EA%B3%A0.jpg" alt="국민곁에 마음허그" style="vertical-align: middle;">
+                                </a>
+                                <h4>국민곁에 마음허그</h4>
+                                <p><b>국가트라우마센터</b> 누리집</p>
+                                <p>자가진단시스템</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--End of col-md-3-->
+                <div class="col-md-3">
+                    <div class="item">
+                        <div class="single_item">
+                            <div class="item_list">
+                                <a href="https://forteacher.kedi.re.kr/web/contents/view.do?mId=41" style="display: inline-block; line-height: 100px; vertical-align: middle;">
+                                    <img src="/img/%EA%B5%90%EC%9B%90%EC%B9%98%EC%9C%A0%EC%A7%80%EC%9B%90%EC%84%BC%ED%84%B0_%EB%A1%9C%EA%B3%A0.jpg" alt="교원치유지원센터" style="vertical-align: middle;">
+                                </a>
+                                <h4>교원치유<br>지원센터</h4>
+                                <p><b>교원치유지원센터</b> 누리집</p>
+                                <p>교사웰빙 진단</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--End of col-md-3-->
+
+            </div>
+        </div>
+        <!--End of container-->
+    </section>
+    <!--end of welcome section-->
+
+
+    <!--Start of footer-->
+    <section id="footer">
+        <div class="container">
+            <div class="row text-center">
+                <div class="col-md-6">
+                    <div class="copyright">
+                        <p>@ 2016 - Design By <span><a href="">&#9798;</a></span></p>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="designer">
+                        <p>A Design By <a href="#">XpeedStudio</a></p>
+                    </div>
+                </div>
+            </div>
+            <!--End of row-->
+        </div>
+        <!--End of container-->
+    </section>
+    <!--End of footer-->
+    <!--Scroll to top-->
+    <a href="#" id="back-to-top" title="Back to top">&uarr;</a>
+</body></html>
