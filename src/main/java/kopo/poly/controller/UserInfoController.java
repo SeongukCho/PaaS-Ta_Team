@@ -28,24 +28,34 @@ public class UserInfoController {
 
     private final IUserInfoService userInfoService;
 
+
+    // 로그인 화면으로 이동
+    @GetMapping(value = "login")
+    public String login() {
+        log.info(this.getClass().getName() + ".user/login Start!");
+        log.info(this.getClass().getName() + ".user/login End!");
+
+        return "/user/login";
+    }
+
     // 회원가입 화면으로 이동
     @GetMapping(value = "userRegForm")
     public String userRegForm() {
-        log.info(this.getClass().getName() + ".user/userRegForm");
+        log.info(this.getClass().getName() + ".user/userRegForm Start!");
+        log.info(this.getClass().getName() + ".user/userRegForm End!");
 
         return "/user/userRegForm";
     }
 
     // 회원가입 로직 처리
-    @ResponseBody
     @PostMapping(value = "insertUserInfo")
-    public MsgDTO insertUserInfo(HttpServletRequest request) throws Exception {
+    public String insertUserInfo(HttpServletRequest request, ModelMap modelMap) throws Exception {
 
         log.info(this.getClass().getName() + ".insertUserInfo start!");
 
-        int res = 0; // 회원가입 결과
+        int res; // 회원가입 결과
         String msg = ""; //회원가입 결과에 대한 메시지를 전달할 변수
-        MsgDTO dto = null;
+        String url = "";
 
         // 웹(회원정보 입력화면)에서 받는 정보를 저장할 변수;
         UserInfoDTO pDTO = null;
@@ -62,8 +72,6 @@ public class UserInfoController {
             String userName = CmmUtil.nvl(request.getParameter("userName"));
             String password = CmmUtil.nvl(request.getParameter("password"));
             String email = CmmUtil.nvl(request.getParameter("email"));
-            String addr1 = CmmUtil.nvl(request.getParameter("addr1"));
-            String addr2 = CmmUtil.nvl(request.getParameter("addr2"));
             /*
              * ########################################################
              * 웹 (회원정보 입력화면)에서 받는 정보를 String 변수에 저장 끝!!
@@ -82,8 +90,6 @@ public class UserInfoController {
             log.info("userName : " + userName);
             log.info("password : " + password);
             log.info("email : " + email);
-            log.info("addr1 : " + addr1);
-            log.info("addr2 : " + addr2);
 
             /*
              * ########################################################
@@ -104,8 +110,6 @@ public class UserInfoController {
 
             // 민감 정보인 이메일은 AES128-CBC로 암호화함
             pDTO.setEmail(EncryptUtil.encAES128CBC(email));
-            pDTO.setAddr1(addr1);
-            pDTO.setAddr2(addr2);
 
             /*
              * ##################################################
@@ -121,28 +125,28 @@ public class UserInfoController {
             log.info("회원가입 결과(res) : " + res);
 
             if (res == 1) {
-                msg = "회원가입되었습니다.";
+                msg = "회원가입에 성공하였습니다.";
+                url = "/user/login";
 
                 // 추후 회원가입 입력화면에서 ajax를 활용해서 아이디중복, 이메일중복을 체크하길 바람
             } else if (res == 2) {
                 msg = "이미 가입된 아이디입니다.";
             } else {
-                msg = "오류로 인해 회원가입이 실패하였습니다.";
+                msg = "오류로 인해 회원가입에 실패하였습니다.";
             }
         } catch (Exception e) { // 저장이 실패하면 사용자에게 보여줄 메시지
             msg = "회원가입에 실패하였습니다. : " + e;
             log.info(e.toString());
             e.printStackTrace();
         } finally {
-            // 결과 메시지 전달하기
-            dto = new MsgDTO();
-            dto.setResult(res);
-            dto.setMsg(msg);
+            // 결과 전달하기
+            modelMap.addAttribute("msg", msg);
+            modelMap.addAttribute("url", url);
 
             log.info(this.getClass().getName() + ".insertUserInfo End!");
         }
 
-        return dto;
+        return "/redirect";
     }
 
     // 회원 가입 전 아이디 중복체크하기(Ajax를 통해 입력한 아이디 정보 받음)
@@ -220,119 +224,103 @@ public class UserInfoController {
     }
 
 
-
-    @GetMapping(value = "userList")
-    public String userList(ModelMap model)
-            throws Exception {
-
-        // 로그 찍기(추후 찍은 로그를 통해 이 함수에 접근했는지 파악하기 용이하다.)
-        log.info(this.getClass().getName() + ".userList Start!");
-
-        // 로그인된 사용자 아이디는 Session에 저장함
-        // 교육용으로 아직 로그인을 구현하지 않았기 때문에 Session에 데이터를 저장하지 않았음
-        // 추후 로그인을 구현할 것으로 가정하고, 공지사항 리스트 출력하는 함수에서 로그인 한 것처럼 Session 값을 생성함
-//        session.setAttribute("SESSION_USER_ID", "USER01");
-
-        // 공지사항 리스트 조회하기
-        // Java 8부터 제공되는 Optional 활용하여 NPE(Null Pointer Exception) 처리
-        List<UserInfoDTO> rList = Optional.ofNullable(userInfoService.getUserList())
-                .orElseGet(ArrayList::new);
-
-//        List<NoticeDTO> rList = noticeService.getNoticeList();
+//    @GetMapping(value = "userList")
+//    public String userList(ModelMap model)
+//            throws Exception {
 //
-//        if (rList == null) {
-//            rList = new ArrayList<>();
+//        // 로그 찍기(추후 찍은 로그를 통해 이 함수에 접근했는지 파악하기 용이하다.)
+//        log.info(this.getClass().getName() + ".userList Start!");
+//
+//        // 로그인된 사용자 아이디는 Session에 저장함
+//        // 교육용으로 아직 로그인을 구현하지 않았기 때문에 Session에 데이터를 저장하지 않았음
+//        // 추후 로그인을 구현할 것으로 가정하고, 공지사항 리스트 출력하는 함수에서 로그인 한 것처럼 Session 값을 생성함
+////        session.setAttribute("SESSION_USER_ID", "USER01");
+//
+//        // 공지사항 리스트 조회하기
+//        // Java 8부터 제공되는 Optional 활용하여 NPE(Null Pointer Exception) 처리
+//        List<UserInfoDTO> rList = Optional.ofNullable(userInfoService.getUserList())
+//                .orElseGet(ArrayList::new);
+//
+////        List<NoticeDTO> rList = noticeService.getNoticeList();
+////
+////        if (rList == null) {
+////            rList = new ArrayList<>();
+////        }
+//        for (UserInfoDTO userInfo : rList) {
+//            String decryptedEmail = EncryptUtil.decAES128CBC(userInfo.getEmail());
+//            userInfo.setEmail(decryptedEmail);
 //        }
-        for (UserInfoDTO userInfo : rList) {
-            String decryptedEmail = EncryptUtil.decAES128CBC(userInfo.getEmail());
-            userInfo.setEmail(decryptedEmail);
-        }
+//
+//        // 조회된 리스트 결과값 넣어주기
+//        model.addAttribute("rList", rList);
+//
+//        // 로그 찍기(추후 찍은 로그를 통해 이 함수 호출이 끝났는지 파악하기 용이하다.)
+//        log.info(this.getClass().getName() + ".userList End!");
+//
+//        // 함수 처리가 끝나고 보여줄 JSP 파일명
+//        // webapp/WEB-INF/views/notice/noticeList.jsp
+//        return "/user/userList";
+//
+//    }
 
-        // 조회된 리스트 결과값 넣어주기
-        model.addAttribute("rList", rList);
+//    @GetMapping(value = "userInfo")
+//    public String userInfo(HttpServletRequest request, ModelMap model) throws Exception {
+//
+//        log.info(this.getClass().getName() + ".userInfo Start!");
+//
+//        String uId = CmmUtil.nvl(request.getParameter("userId"));
+//
+//        /*
+//         * ########################################################################
+//         * 반드시, 값을 받았으면, 꼭 로그를 찍어서 값이 제대로 들어오는지 파악해야함
+//         * 반드시 작성할것.
+//         * ########################################################################
+//         */
+//        log.info("uId : " + uId);
+//
+//        // 값 전달은 반드시 DTO 객체를 이용해서 처리함. 전달받은 값을 DTO 객체에 넣는다.
+//        UserInfoDTO pDTO = new UserInfoDTO();
+//        pDTO.setUserId(uId);
+//
+//        // 유저 상세정보 가져오기
+//        // Java8부터 제공되는 Optional 활용하여 NPE(Null Pointer Exception) 처리
+//        UserInfoDTO rDTO = Optional.ofNullable(
+//                userInfoService.getUserInfo(pDTO, true)
+//        ).orElseGet(UserInfoDTO::new);
+//
+//        rDTO.setEmail(
+//                EncryptUtil.decAES128CBC(rDTO.getEmail())
+//        );
+//
+//
+//        log.info("rDTO : " + rDTO.toString());
+//
+//        // 조회된 리스트 결과값 넣어주기
+//        model.addAttribute("rDTO", rDTO);
+//
+//        log.info(this.getClass().getName() + ".userInfo End!");
+//
+//        // 함수처리가 끝나고 보여줄 html 파일명
+//        return "/user/userInfo";
+//    }
 
-        // 로그 찍기(추후 찍은 로그를 통해 이 함수 호출이 끝났는지 파악하기 용이하다.)
-        log.info(this.getClass().getName() + ".userList End!");
 
-        // 함수 처리가 끝나고 보여줄 JSP 파일명
-        // webapp/WEB-INF/views/notice/noticeList.jsp
-        return "/user/userList";
-
-    }
-
-    @GetMapping(value = "userInfo")
-    public String userInfo(HttpServletRequest request, ModelMap model) throws Exception {
-
-        log.info(this.getClass().getName() + ".userInfo Start!");
-
-        String uId = CmmUtil.nvl(request.getParameter("userId"));
-
-        /*
-         * ########################################################################
-         * 반드시, 값을 받았으면, 꼭 로그를 찍어서 값이 제대로 들어오는지 파악해야함
-         * 반드시 작성할것.
-         * ########################################################################
-         */
-        log.info("uId : " + uId);
-
-        // 값 전달은 반드시 DTO 객체를 이용해서 처리함. 전달받은 값을 DTO 객체에 넣는다.
-        UserInfoDTO pDTO = new UserInfoDTO();
-        pDTO.setUserId(uId);
-
-        // 유저 상세정보 가져오기
-        // Java8부터 제공되는 Optional 활용하여 NPE(Null Pointer Exception) 처리
-        UserInfoDTO rDTO = Optional.ofNullable(
-                userInfoService.getUserInfo(pDTO, true)
-        ).orElseGet(UserInfoDTO::new);
-
-        rDTO.setEmail(
-                EncryptUtil.decAES128CBC(rDTO.getEmail())
-        );
-
-
-        log.info("rDTO : " + rDTO.toString());
-
-        // 조회된 리스트 결과값 넣어주기
-        model.addAttribute("rDTO", rDTO);
-
-        log.info(this.getClass().getName() + ".userInfo End!");
-
-        // 함수처리가 끝나고 보여줄 html 파일명
-        return "/user/userInfo";
-    }
-
-    /*
-     * 로그인을 위한 입력 화면으로 이동
-     */
-    @GetMapping(value = "login")
-    public String login() {
-        log.info(this.getClass().getName() + ".user/login Start!");
-
-        log.info(this.getClass().getName() + ".user/login End!");
-
-        return "user/login";
-    }
-
-    @GetMapping(value = "loginResult")
-    public String loginResult() {
-        log.info(this.getClass().getName() + ".user/loginResult Start!");
-
-        log.info(this.getClass().getName() + ".user/loginResult End!");
-
-        return "user/loginResult";
-
-    }
+//    @GetMapping(value = "loginResult")
+//    public String loginResult() {
+//        log.info(this.getClass().getName() + ".user/loginResult Start!");
+//        log.info(this.getClass().getName() + ".user/loginResult End!");
+//
+//        return "user/loginResult";
+//    }
 
     // 로그인 처리 결과
-    @ResponseBody
     @PostMapping(value = "loginProc")
-    public MsgDTO loginProc(HttpServletRequest request, HttpSession session) {
+    public String loginProc(HttpServletRequest request, ModelMap model, HttpSession session) {
 
         log.info(this.getClass().getName() + ".loginProc Start!");
 
-        int res = 0; // 로그인 처리 결과를 저장할 변수 (로그인 성공 : 1, 아이디, 비밀번호 불일치로 인한 실패 : 0, 시스템 에러 : 2)
         String msg = ""; // 로그인 결과에 대한 메시지를 전달할 변수
-        MsgDTO dto = null; // 결과 메시지 구조
+        String url = "";
 
         // 웹(회원정보 입력화면)에서 받는 정보를 저장할 변수
         UserInfoDTO pDTO = null;
@@ -372,53 +360,50 @@ public class UserInfoController {
              */
             if (CmmUtil.nvl(rDTO.getUserId()).length() > 0) { // 로그인 성공
 
-                res = 1;
                 /*
-                 * 세션에 회원아읻 저장하기, 추후 로그인여부를 체크하기 위해 세션에 값이 존재하는지 체크한다.
+                 * 세션에 회원아이디 저장하기, 추후 로그인여부를 체크하기 위해 세션에 값이 존재하는지 체크한다.
                  * 일반적으로 세션에 저장되는 키는 대문자로 입력하며, 앞에 SS를 붙인다.
                  *
                  * Session 단어에서 SS를 가져온 것이다.
                  */
-                msg = "로그인에 성공했습니다.";
 
                 session.setAttribute("SS_USER_ID", userId);
                 session.setAttribute("SS_USER_NAME", CmmUtil.nvl(rDTO.getUserName()));
                 String decryptedEmail = EncryptUtil.decAES128CBC(rDTO.getEmail());
                 rDTO.setEmail(decryptedEmail);
                 session.setAttribute("SS_USER_EMAIL", CmmUtil.nvl(rDTO.getEmail()));
-                session.setAttribute("SS_USER_ADDR1", CmmUtil.nvl(rDTO.getAddr1()));
-                session.setAttribute("SS_USER_ADDR2", CmmUtil.nvl(rDTO.getAddr2()));
 
+                msg = "로그인에 성공했습니다.";
+                url = "/main/main";
             } else {
                 msg = "아이디와 비밀번호가 일치하지 않습니다.";
+                url = "/user/login";
             }
         } catch (Exception e) {
             // 저장에 실패하면 사용자에게 보여줄 메시지
             msg = "시스템 문제로 로그인에 실패하였습니다.";
-            res = 2;
+            url = "/user/login";
             log.info(e.toString());
             e.printStackTrace();
 
         } finally {
-            // 결과 메시지 전달하기
-            dto = new MsgDTO();
-            dto.setResult(res);
-            dto.setMsg(msg);
+            model.addAttribute("msg", msg);
+            model.addAttribute("url", url);
 
             log.info(this.getClass().getName() + ".loginProc End!");
         }
 
-        return dto;
+        return "/redirect";
     }
 
-    @GetMapping(value = "myInfo")
-    public String myInfo() {
-        log.info(this.getClass().getName() + ".user/myInfo Start!");
-
-        log.info(this.getClass().getName() + ".user/myInfo End!");
-
-        return "user/myInfo";
-    }
+//    @GetMapping(value = "myInfo")
+//    public String myInfo() {
+//        log.info(this.getClass().getName() + ".user/myInfo Start!");
+//
+//        log.info(this.getClass().getName() + ".user/myInfo End!");
+//
+//        return "user/myInfo";
+//    }
 
     @GetMapping(value = "searchUserId")
     public String searchUserId() {
@@ -426,7 +411,7 @@ public class UserInfoController {
 
         log.info(this.getClass().getName() + ".user/searchUserId End!");
 
-        return "user/searchUserId";
+        return "/user/searchUserId";
     }
 
     @PostMapping(value = "searchUserIdProc")
@@ -473,7 +458,7 @@ public class UserInfoController {
 
         log.info(this.getClass().getName() + ".user/searchUserIdProc End!");
 
-        return "user/searchUserIdResult";
+        return "/user/searchUserIdResult";
     }
 
     // 비밀번호 찾기 화면
@@ -489,7 +474,7 @@ public class UserInfoController {
 
         log.info(this.getClass().getName() + ".user/searchPassword End!");
 
-        return "user/searchPassword";
+        return "/user/searchPassword";
     }
 
     /*
@@ -547,7 +532,7 @@ public class UserInfoController {
 
         log.info(this.getClass().getName() + ".user/searchPasswordProc End!");
 
-        return "user/newPassword";
+        return "/user/newPassword";
     }
 
     @PostMapping(value = "newPasswordProc")
@@ -606,7 +591,7 @@ public class UserInfoController {
 
         log.info(this.getClass().getName() + ".user/newPasswordProc End!");
 
-        return "user/newPasswordResult";
+        return "/user/newPasswordResult";
     }
 
 

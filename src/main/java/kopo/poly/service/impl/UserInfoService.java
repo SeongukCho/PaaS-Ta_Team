@@ -205,22 +205,22 @@ public class UserInfoService implements IUserInfoService {
          * 따라서, length() 함수를 통해 회원아이디의 글자수를 가져와 0보다 큰지 비교한다.
          * 0보다 크다면, 글자가 존재하는 것이기 때문에 값이 존재한다.
          */
-        if (CmmUtil.nvl(rDTO.getUserId()).length() > 0) {
-
-            MailDTO mDTO = new MailDTO();
-
-            // 아이디, 패스워드 일치하는지 체크하는 쿼리에서 이메일 값 받아오기(아직 암호화되어 넘어오기 때문에 복호화 수행함)
-            mDTO.setToMail(EncryptUtil.decAES128CBC(CmmUtil.nvl(rDTO.getEmail())));
-
-            mDTO.setTitle("로그인 알림!"); // 제목
-
-            // 메일 내용에 가입자 이름 넣어서 내용 발송
-            mDTO.setContents(DateUtil.getDateTime("yyyy.MM.dd hh:mm:ss") + "에 "
-                    + CmmUtil.nvl(rDTO.getUserName()) + "님이 로그인하였습니다.");
-
-            // 회원 가입이 성공했기 때문에 메일을 발송함
-            mailService.doSendMail(mDTO);
-        }
+//        if (CmmUtil.nvl(rDTO.getUserId()).length() > 0) {
+//
+//            MailDTO mDTO = new MailDTO();
+//
+//            // 아이디, 패스워드 일치하는지 체크하는 쿼리에서 이메일 값 받아오기(아직 암호화되어 넘어오기 때문에 복호화 수행함)
+//            mDTO.setToMail(EncryptUtil.decAES128CBC(CmmUtil.nvl(rDTO.getEmail())));
+//
+//            mDTO.setTitle("로그인 알림!"); // 제목
+//
+//            // 메일 내용에 가입자 이름 넣어서 내용 발송
+//            mDTO.setContents(DateUtil.getDateTime("yyyy.MM.dd hh:mm:ss") + "에 "
+//                    + CmmUtil.nvl(rDTO.getUserName()) + "님이 로그인하였습니다.");
+//
+//            // 회원 가입이 성공했기 때문에 메일을 발송함
+//            mailService.doSendMail(mDTO);
+//        }
 
         log.info(this.getClass().getName() + ".getLogin End!");
 

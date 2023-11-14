@@ -2,12 +2,17 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <meta charset="UTF-8">
-    <title>회원가입 화면</title>
-    <link rel="stylesheet" href="/css/table.css" />
-    <link rel="stylesheet" href="/css/reg.css" />
-    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-    <script type="text/javascript" src="/js/jquery-3.6.0.min.js"></script>
+    <title>로그인</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <script type="text/javascript" src="/js/jquery-1.9.1.min.js"></script>
+    <script type="text/javascript" src="/js/jquery-ui.js"></script>
+    <script type="text/javascript" src="/js/menu.js"></script>
+    <script type="text/javascript" src="/js/common.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="/css/common.css">
+
     <script type="text/javascript">
         // 아이디 중복체크여부 (중복 Y / 중복아님 : N)
         let userIdCheck = "Y";
@@ -16,30 +21,30 @@
         let emailAuthNumber = "";
 
         // HTML로딩이 완료되고, 실행됨
-        $(document).ready(function() {
+        $(document).ready(function () {
 
             let f = document.getElementById("f"); // form 태그
 
             // 아이디 중복체크
-            $("#btnUserId").on("click", function() { // 버튼 클릭했을때, 발생되는 이벤트 생성함(onclick 이벤트와 동일함)
+            $("#btnUserId").on("click", function () { // 버튼 클릭했을때, 발생되는 이벤트 생성함(onclick 이벤트와 동일함)
                 userIdExists(f)
             })
 
             // 이메일 중복체크
-            $("#btnEmail").on("click", function() { // 버튼 클릭했을때, 발생되는 이벤트 생성함(onclick 이벤트와 동일함)
+            $("#btnEmail").on("click", function () { // 버튼 클릭했을때, 발생되는 이벤트 생성함(onclick 이벤트와 동일함)
                 emailExists(f)
             })
 
-            $("#btnAuth").on("click", function() { // 버튼 클릭했을때, 발생되는 이벤트 생성함(onclick 이벤트와 동일함)
+            $("#btnAuth").on("click", function () { // 버튼 클릭했을때, 발생되는 이벤트 생성함(onclick 이벤트와 동일함)
                 authConfirm(f)
             })
 
             // 우편번호 찾기
-            $("#btnAddr").on("click", function() { // 버튼 클릭했을때, 발생되는 이벤트 생성함(onclick 이벤트와 동일함)
+            $("#btnAddr").on("click", function () { // 버튼 클릭했을때, 발생되는 이벤트 생성함(onclick 이벤트와 동일함)
                 kakaoPost(f);
             })
 
-            $("#btnSend").on("click", function() { // 버튼 클릭했을때, 발생되는 이벤트 생성함(onclick 이벤트와 동일함)
+            $("#btnSend").on("click", function () { // 버튼 클릭했을때, 발생되는 이벤트 생성함(onclick 이벤트와 동일함)
                 doSubmit(f);
             })
         })
@@ -59,7 +64,7 @@
                 type: "post", // 전송방식은 Post
                 dataType: "JSON", // 전송 결과는 JSON으로 받기
                 data: $("#f").serialize(), // form 태그 내 input 등 객체를 자동으로 전송할 형태로 변경하기
-                success: function(json) { // 호출이 성공했다면..
+                success: function (json) { // 호출이 성공했다면..
 
                     if (json.existsYn === "Y") {
                         alert("이미 가입된 아이디가 존재합니다.");
@@ -87,7 +92,7 @@
                 type: "post", // 전송방식은 Post
                 dataType: "JSON", // 전송 결과는 JSON으로 받기
                 data: $("#f").serialize(), // form 태그 내 input 등 객체를 자동으로 전송할 형태로 변경하기
-                success: function(json) { // 호출이 성공했다면..
+                success: function (json) { // 호출이 성공했다면..
 
                     if (json.existsYn === "Y") {
                         alert("이미 가입된 이메일 주소가 존재합니다.");
@@ -118,22 +123,6 @@
                 alert("이메일 인증번호가 일치합니다.")
                 f.authNumber.focus();
             }
-        }
-
-        // 카카오 우편번호 조회 API 호출
-        function kakaoPost(f) {
-            new daum.Postcode({
-                oncomplete: function(data) {
-
-                    // Kakao에서 제공하는 data는 JSON구조로 주소 조회 결과값을 전달함
-                    // 주요 결과값
-                    // 주소 : data.address
-                    // 우편번호 : data.zonecode
-                    let address = data.address; // 주소
-                    let zonecode = data.zonecode; // 우편번호
-                    f.addr1.value = "(" + zonecode + ")" + address
-                }
-            }).open();
         }
 
         //회원가입 정보의 유효성 체크하기
@@ -211,7 +200,7 @@
                 type: "post", // 전송방식은 Post
                 dataType: "JSON", // 전송 결과는 JSON으로 받기
                 data: $("#f").serialize(), // form 태그 내 input 등 객체를 자동으로 전송할 형태로 변경하기
-                success: function(json) { // /user/insertUserInfo 호출이 성공했다면..
+                success: function (json) { // /user/insertUserInfo 호출이 성공했다면..
 
                     if (json.result === 1) { // 회원가입 성공
                         alert(json.msg); // 메시지 띄우기
@@ -228,72 +217,266 @@
 </head>
 
 <body>
-    <h2>회원 가입하기</h2>
-    <hr />
-    <br />
-    <form action="/user/insertUserInfo" method="post" onsubmit="doSubmit(this)" id="f">
-        <div class="divTable minimalistBlack">
-            <div class="divTableBody">
-                <div class="divTableRow">
-                    <div class="divTableCell">* 아이디
-                    </div>
-                    <div class="divTableCell">
-                        <input type="text" name="userId" style="width:80%" placeholder="아이디" />
-                        <button id="btnUserId" type="button">아이디 중복체크</button>
-                    </div>
+<div id="wrapper">
+    <!-- 네비게이션 바 -->
+    <header id="header" class>
+        <div class="head_box">
+            <h1 class="logo"><a href="/main/main">마음을 나누는 교실</a></h1>
+            <button type="button" class="btnMenu"><span>메뉴</span></button>
+            <!-- gnb -->
+            <nav id="gnb">
+                <ul class="gnb">
+                    <li>
+                        <a href="#"><span>소개</span></a>
+                        <ul>
+                            <li><a href="#">인사말</a></li>
+                            <li><a href="#">개요</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="/notice/noticeList"><span>공지사항</span></a>
+                        <ul>
+                            <li><a href="/notice/noticeList">공지사항</a></li>
+                            <li><a href="#">상담일정</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#"><span>지역센터</span></a>
+                        <ul>
+                            <li><a href="#">지역 상담센터</a></li>
+                            <li><a href="#">경기 보호지원센터</a></li>
+                            <li><a href="#">교원 치유지원센터</a></li>
+                        </ul>
+                    </li>
+                    <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</li>
+                    <li>
+                        <a href="#"><span>온라인 상담</span></a>
+                        <ul>
+                            <li><a href="#">이용방법</a></li>
+                            <li><a href="#">예약</a></li>
+                            <li><a href="#">참가하기</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#"><span>고객센터</span></a>
+                        <ul>
+                            <li><a href="#">고객센터</a></li>
+                            <li><a href="#">FAQ</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+            <!-- //gnb -->
+            <div class="topGlob">
+                <ul>
+                    <li><a href="/user/userRegForm">회원가입</a></li>
+                    <li><a href="/user/login">로그인</a></li>
+                </ul>
+            </div>
+
+            <nav id="mGnb">
+                <button type="button" class="btnClose"><span>닫기</span></button>
+                <div class="mbTop">
+                    <div class="mlogo"><a href="#"><img src="/img/logo.png"></a></div>
+                    <ul>
+                        <li><a href="/user/userRegForm">회원가입</a></li>
+                        <li><a href="/user/login">로그인</a></li>
+                    </ul>
                 </div>
-                <div class="divTableRow">
-                    <div class="divTableCell">* 이름
+                <ul>
+                    <li class="has-sub">
+                        <a href="#">소개</a>
+                        <ul>
+                            <li><a href="#">인사말</a>
+                            </li>
+                            <li><a href="#">개요</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="has-sub">
+                        <a href="/notice/noticeList">공지사항</a>
+                        <ul>
+                            <li><a href="/notice/noticeList">공지사항</a>
+                            </li>
+                            <li><a href="#">상담일정</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="has-sub">
+                        <a href="#">지역센터</a>
+                        <ul>
+                            <li><a href="#">지역 상담센터</a>
+                            </li>
+                            <li><a href="#">경기 보호지원센터</a>
+                            </li>
+                            <li><a href="#">교원 치유지원센터</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="has-sub">
+                        <a href="#">온라인 상담</a>
+                        <ul>
+                            <li><a href="#">이용방법 </a>
+                            </li>
+                            <li><a href="#">예약</a>
+                            </li>
+                            <li><a href="#">참가하기</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="has-sub">
+                        <a href="#">고객센터</a>
+                        <ul>
+                            <li><a href="#">문의 남기기</a>
+                            </li>
+                            <li><a href="#">참가하기</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+            <div class="fix_bg"></div>
+        </div>
+    </header>
+    <!-- // 네비게이션 바 -->
+    <div id="subContainer">
+        <div class="subSkin bg"></div>
+        <nav id="lnb">
+            <div class="area_subVisual">
+                <div class="inner">
+                    <div class="lnb pc">
+                        <div class="home">
+                            <a href="/main/main"><img src="/img/icon_home.png" alt="홈"></a>
+                        </div>
+                        <ul>
+                            <li>
+                                <a href="/user/userRegForm" title="회원가입">회원가입</a>
+                            </li>
+                            <li>
+                                <a href="/user/login" title="로그인">로그인</a>
+                            </li>
+                            <li>
+                                <a href="#" title="로그아웃">로그아웃</a>
+                            </li>
+                            <li>
+                                <a href="/user/searchUserId" title="아이디찾기">아이디찾기</a>
+                            </li>
+                            <li>
+                                <a href="/user/searchPassword" title="비밀번호찾기">비밀번호찾기</a>
+                            </li>
+                        </ul>
                     </div>
-                    <div class="divTableCell">
-                        <input type="text" name="userName" style="width:95%" placeholder="이름" />
-                    </div>
-                </div>
-                <div class="divTableRow">
-                    <div class="divTableCell">* 비밀번호
-                    </div>
-                    <div class="divTableCell">
-                        <input type="password" name="password" style="width:95%" placeholder="비밀번호" />
-                    </div>
-                </div>
-                <div class="divTableRow">
-                    <div class="divTableCell">* 비밀번호확인
-                    </div>
-                    <div class="divTableCell">
-                        <input type="password" name="password2" style="width:95%" placeholder="비밀번호 확인" />
-                    </div>
-                </div>
-                <div class="divTableRow">
-                    <div class="divTableCell">* 이메일
-                    </div>
-                    <div class="divTableCell">
-                        <input type="email" name="email" style="width:40%" placeholder="이메일주소" />
-                        <button id="btnEmail" type="button">인증번호 발송</button>
-                        <input type="text" name="authNumber" style="width:30%" placeholder="인증번호" />
-                        <button id="btnAuth" type="button">인증번호 확인</button>
-                    </div>
-                </div>
-                <div class="divTableRow">
-                    <div class="divTableCell">* 주소
-                    </div>
-                    <div class="divTableCell">
-                        <input type="text" name="addr1" style="width:85%" placeholder="주소" />
-                        <button id="btnAddr" type="button">우편번호</button>
-                    </div>
-                </div>
-                <div class="divTableRow">
-                    <div class="divTableCell">* 상세 주소
-                    </div>
-                    <div class="divTableCell">
-                        <input type="text" name="addr2" style="width:95%" placeholder="상세주소" />
+                    <div class="lnb mobile">
+                        <div class="home">
+                            <a href="/main/main"><img src="/img/icon_home.png" alt="홈"></a>
+                        </div>
+                        <div class="large">회원</div>
+
+                        <div class="small">
+                            <span data-mobile-tit="">로그인</span>
+                            <ul>
+                                <li>
+                                    <a href="/user/userRegForm" title="회원가입">회원가입</a>
+                                </li>
+                                <li>
+                                    <a href="/user/login" title="로그인">로그인</a>
+                                </li>
+                                <li>
+                                    <a href="#" title="로그아웃">로그아웃</a>
+                                </li>
+                                <li>
+                                    <a href="/user/searchUserId" title="아이디찾기">아이디찾기</a>
+                                </li>
+                                <li>
+                                    <a href="/user/searchPassword" title="비밀번호찾기">비밀번호찾기</a>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div>
-            <button id="btnSend" type="button">회원가입</button>
-        </div>
-    </form>
-</body>
+        </nav>
+        <div id="content">
+            <h1 class="title">회원가입</h1>
+            <div class="sContent">
+                <div id="cms_member_article">
+                    <form id="f" action="/user/insertUserInfo" name="memberInputForm" method="post"
+                          onsubmit="doSubmit(this)">
+                        <table class="writeTypeA mt10">
+                            <caption>회원가입 글쓰기 서식</caption>
+                            <colgroup>
+                                <col style="width:18%">
+                                <col>
+                            </colgroup>
+                            <tbody>
+                            <tr>
+                                <th scope="row"><label for="mbrId" id="fn_name_mbrId"
+                                                       class="required"><span>아이디</span></label></th>
+                                <td>
+                                    <input type="text" name="userId" id="mbrId" class="inpA" style="ime-mode:disabled;"
+                                           required="required" value="">
+                                    <span class="btnBc small green"><button id="btnUserId"
+                                                                            type="button">아이디 중복확인</button></span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th><label for="mbrName"><span>이름</span></label></th>
+                                <td>
+                                    <input type="text" name="userName" id="mbrName" class="inpA" style="" maxlength="15"
+                                           required="required" value="">
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="row"><label for="mbrPwd" class="required"><span>비밀번호</span></label></th>
+                                <td>
+                                    <input type="password" name="password" id="mbrPwd" autocomplete="off" class="inpA"
+                                           style="" maxlength="15" required="required">
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="row"><label for="mbrPwd_reconfirm"
+                                                       class="required"><span>비밀번호 확인</span></label>
+                                </th>
+                                <td>
+                                    <input type="password" name="password2" id="mbrPwd_reconfirm" autocomplete="off"
+                                           class="inpA" style="" maxlength="15" required="required">
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="row"><label for="mbrEmail" class="required"><span>이메일</span></label></th>
+                                <td>
+                                    <div class="input-email" style="float:left;">
+                                        <input type="text" id="mbrEmail" name="email" title="이메일" class="inputTxt"
+                                               style="ime-mode:disabled;width:58%;" required="required" value="">
+                                        <span class="btnBc small green"><button id="btnEmail" type="button"
+                                                                                class="m_dup_btn">인증번호 발송</button></span>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th><label for="ahCode" class="required"><span>인증번호</span></label></th>
+                                <td>
+                                    <input type="text" name="authNumber" id="ahCode" class="inputTxt  w30"
+                                           style="text-align:right;ime-mode:disabled;text-align:right;" maxlength="6"
+                                           required="required" value="">
+                                    <span class="btnBc small green"><button id="btnAuth" type="button"
+                                                                            class="m_dup_btn">인증번호 확인</button></span>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
 
+                        <!-- btnset -->
+                        <div class="btnWrap">
+                            <span class="btnBc green w"><input type="submit" value="회원가입"></span>
+                            <span class="btnBc black w"><button type="reset" title="취소">취소</button></span>
+                        </div>
+                        <!-- //btnset -->
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
 </html>

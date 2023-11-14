@@ -4,8 +4,10 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 @Slf4j
+@RequestMapping(value = "/main")
 @RequiredArgsConstructor
 @Controller
 public class MainController {
@@ -13,12 +15,12 @@ public class MainController {
     @GetMapping(value = "/main")
     public String main() {
         log.info(this.getClass().getName() + ".main Start");
-        return "Main";
+        return "main/main";
     }
 
-    @GetMapping(value = "/centermain")
-    public String centermain() {
-        log.info(this.getClass().getName() + ".centermain Start");
-        return "centermain";
+    @GetMapping(value = "/centerMain")
+    public String centerMain() {
+        log.info(this.getClass().getName() + ".centerMain Start");
+        return "main/centerMain";
     }
 }

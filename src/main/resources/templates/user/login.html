@@ -2,59 +2,38 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
+    <title>로그인</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>로그인</title>
-    <!--인텔리제이 전용-->
-    <script type="text/javascript" src="/js/nav/jquery-1.9.1.min.js"></script>
-    <script type="text/javascript" src="/js/nav/jquery-ui.js"></script>
-    <script type="text/javascript" src="/js/nav/menu.js"></script>
-    <script type="text/javascript" src="/js/nav/common.js"></script>
-    <link rel="stylesheet" href="/css/nav/ui_content.css">
-    <link rel="stylesheet" type="text/css" href="/css/nav/common.css" />
-    <link rel="stylesheet" href="/css/nav/carousel.css">
-    <link rel="stylesheet" href="/css/nav/responsive.css">
-    <link rel="stylesheet" href="/css/nav/bootstrap.min.css">
-    <link rel="stylesheet" href="/css/nav/style.css">
-    <link rel="stylesheet" href="/css/nav/font-awesome.min.css">
-    <link rel="stylesheet" href="/css/nav/board.css">
 
-    <!-- 브라켓 전용 -->
-<!--
-    <script type="text/javascript" src="js/nav/jquery-1.9.1.min.js"></script>
-    <script type="text/javascript" src="js/nav/jquery-ui.js"></script>
-    <script type="text/javascript" src="js/nav/menu.js"></script>
-    <script type="text/javascript" src="js/nav/common.js"></script>
-    <link rel="stylesheet" href="css/nav/ui_content.css">
-    <link rel="stylesheet" type="text/css" href="css/nav/common.css" />
-    <link rel="stylesheet" href="css/nav/carousel.css">
-    <link rel="stylesheet" href="css/nav/responsive.css">
-    <link rel="stylesheet" href="css/nav/bootstrap.min.css">
-    <link rel="stylesheet" href="css/nav/style.css">
-    <link rel="stylesheet" href="css/nav/font-awesome.min.css">
-    <link rel="stylesheet" href="css/nav/board.css">
--->
+    <script type="text/javascript" src="/js/jquery-1.9.1.min.js"></script>
+    <script type="text/javascript" src="/js/jquery-ui.js"></script>
+    <script type="text/javascript" src="/js/menu.js"></script>
+    <script type="text/javascript" src="/js/common.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="/css/common.css">
+
     <script type="text/javascript">
         // HTML로딩이 완료되고, 실행됨
-        $(document).ready(function() {
+        $(document).ready(function () {
             let f = document.getElementById("f"); // form 태그
 
             // 회원가입
-            $("#btnUserReg").on("click", function() { // 버튼 클릭했을때, 발생되는 이벤트 생성함(onclick 이벤트와 동일함)
+            $("#btnUserReg").on("click", function () { // 버튼 클릭했을때, 발생되는 이벤트 생성함(onclick 이벤트와 동일함)
                 location.href = "/user/userRegForm";
             })
 
             // 아이디 찾기
-            $("#btnSearchUserId").on("click", function() { // 버튼 클릭했을때, 발생되는 이벤트 생성함(onclick 이벤트와 동일함)
+            $("#btnSearchUserId").on("click", function () { // 버튼 클릭했을때, 발생되는 이벤트 생성함(onclick 이벤트와 동일함)
                 location.href = "/user/searchUserId";
             })
 
             // 비밀번호 찾기
-            $("#btnSearchPassword").on("click", function() { // 버튼 클릭했을때, 발생되는 이벤트 생성함(onclick 이벤트와 동일함)
+            $("#btnSearchPassword").on("click", function () { // 버튼 클릭했을때, 발생되는 이벤트 생성함(onclick 이벤트와 동일함)
                 location.href = "/user/searchPassword";
             })
 
-            $("#btnLogin").on("click", function() {
+            $("#btnLogin").on("click", function () {
                 doLogin(f);
             })
         })
@@ -79,11 +58,11 @@
                 type: "post", // 전송방식은 Post
                 dataType: "JSON", // 전송 결과는 JSON으로 받기
                 data: $("#f").serialize(), // form 태그 내 input 등 객체를 자동으로 전송할 상태로 변경하기
-                success: function(json) { // /notice/noticeUpdate 호출이 성공했다면
+                success: function (json) { // /notice/noticeUpdate 호출이 성공했다면
 
                     if (json.result === 1) { // 로그인 성공
                         alert(json.msg); // 메시지 띄우기
-                        location.href = "/main/main"; // 메인 페이지로 이동
+                        location.href = "/main/main"; // 로그인 성공 페이지로 이동
 
                     } else { // 로그인 실패
                         alert(json.msg); // 메시지 띄우기
@@ -97,188 +76,214 @@
 </head>
 
 <body>
-    <div id="wrapper" class="main">
-        <header id="header">
-            <div class="head_box">
-                <h1 class="logo"><img src="/img/logo.png"></h1>
-                <button type="button" class="btnMenu"><span>메뉴</span></button>
-                <!-- gnb -->
-                <nav id="gnb">
-                    <ul class="gnb">
-                        <li>
-                            <a href="#"><span>소개</span></a>
-                            <ul>
-                                <li><a href="#">인사말</a></li>
-                                <li><a href="#">개요</a></li>
-                            </ul>
-                        </li>
-                        <li>
-                            <a href="/notice/noticeList"><span>공지사항</span></a>
-                            <ul>
-                                <li><a href="/notice/noticeList">공지사항</a></li>
-                                <li><a href="#">상담일정</a></li>
-                            </ul>
-                        </li>
-                        <li>
-                            <a href="#"><span>지역센터</span></a>
-                            <ul>
-                                <li><a href="#">지역 상담센터</a></li>
-                                <li><a href="#">경기 보호지원센터</a></li>
-                                <li><a href="#">교원 치유지원센터</a></li>
-                            </ul>
-                        </li>
-                        <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</li>
-                        <li>
-                            <a href="#"><span>온라인 상담</span></a>
-                            <ul>
-                                <li><a href="#">이용방법</a></li>
-                                <li><a href="#">예약</a></li>
-                                <li><a href="#">참가하기</a></li>
-                            </ul>
-                        </li>
-                        <li>
-                            <a href="#"><span>고객센터</span></a>
-                            <ul>
-                                <li><a href="#">고객센터</a></li>
-                                <li><a href="#">FAQ</a></li>
-                            </ul>
-                        </li>
-                    </ul>
-                </nav>
-                <!-- //gnb -->
-                <div class="topGlob">
+<div id="wrapper">
+    <!-- 내비게이션 바 -->
+    <header id="header" class>
+        <div class="head_box">
+            <h1 class="logo"><a href="/main/main">마음을 나누는 교실</a></h1>
+            <button type="button" class="btnMenu"><span>메뉴</span></button>
+            <!-- gnb -->
+            <nav id="gnb">
+                <ul class="gnb">
+                    <li>
+                        <a href="#"><span>소개</span></a>
+                        <ul>
+                            <li><a href="#">인사말</a></li>
+                            <li><a href="#">개요</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="/notice/noticeList"><span>공지사항</span></a>
+                        <ul>
+                            <li><a href="/notice/noticeList">공지사항</a></li>
+                            <li><a href="#">상담일정</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#"><span>지역센터</span></a>
+                        <ul>
+                            <li><a href="#">지역 상담센터</a></li>
+                            <li><a href="#">경기 보호지원센터</a></li>
+                            <li><a href="#">교원 치유지원센터</a></li>
+                        </ul>
+                    </li>
+                    <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</li>
+                    <li>
+                        <a href="#"><span>온라인 상담</span></a>
+                        <ul>
+                            <li><a href="#">이용방법</a></li>
+                            <li><a href="#">예약</a></li>
+                            <li><a href="#">참가하기</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#"><span>고객센터</span></a>
+                        <ul>
+                            <li><a href="#">고객센터</a></li>
+                            <li><a href="#">FAQ</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+            <!-- //gnb -->
+            <div class="topGlob">
+                <ul>
+                    <li><a href="/user/userRegForm">회원가입</a></li>
+                    <li><a href="/user/login">로그인</a></li>
+                </ul>
+            </div>
+
+            <nav id="mGnb">
+                <button type="button" class="btnClose"><span>닫기</span></button>
+                <div class="mbTop">
+                    <div class="mlogo"><a href="#"><img src="/img/logo.png"></a></div>
                     <ul>
                         <li><a href="/user/userRegForm">회원가입</a></li>
                         <li><a href="/user/login">로그인</a></li>
                     </ul>
                 </div>
-
-                <nav id="mGnb">
-                    <button type="button" class="btnClose"><span>닫기</span></button>
-                    <div class="mbTop">
-                        <div class="mlogo"><a href="#"><img src="/img/logo.png"></a></div>
+                <ul>
+                    <li class="has-sub">
+                        <a href="#">소개</a>
                         <ul>
-                            <li><a href="/user/userRegForm">회원가입</a></li>
-                            <li><a href="/user/login">로그인</a></li>
+                            <li><a href="#">인사말</a>
+                            </li>
+                            <li><a href="#">개요</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="has-sub">
+                        <a href="/notice/noticeList">공지사항</a>
+                        <ul>
+                            <li><a href="/notice/noticeList">공지사항</a>
+                            </li>
+                            <li><a href="#">상담일정</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="has-sub">
+                        <a href="#">지역센터</a>
+                        <ul>
+                            <li><a href="#">지역 상담센터</a>
+                            </li>
+                            <li><a href="#">경기 보호지원센터</a>
+                            </li>
+                            <li><a href="#">교원 치유지원센터</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="has-sub">
+                        <a href="#">온라인 상담</a>
+                        <ul>
+                            <li><a href="#">이용방법 </a>
+                            </li>
+                            <li><a href="#">예약</a>
+                            </li>
+                            <li><a href="#">참가하기</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="has-sub">
+                        <a href="#">고객센터</a>
+                        <ul>
+                            <li><a href="#">문의 남기기</a>
+                            </li>
+                            <li><a href="#">참가하기</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+            <div class="fix_bg"></div>
+        </div>
+    </header>
+    <!-- // 내비게이션 바 -->
+    <div id="subContainer">
+        <div class="subSkin bg"></div>
+        <nav id="lnb">
+            <div class="area_subVisual">
+                <div class="inner">
+                    <div class="lnb pc">
+                        <div class="home">
+                            <a href="/main/main"><img src="/img/icon_home.png" alt="홈"></a>
+                        </div>
+                        <ul>
+                            <li>
+                                <a href="/user/userRegForm" title="회원가입">회원가입</a>
+                            </li>
+                            <li>
+                                <a href="/user/login" title="로그인">로그인</a>
+                            </li>
+                            <li>
+                                <a href="#" title="로그아웃">로그아웃</a>
+                            </li>
+                            <li>
+                                <a href="/user/searchUserId" title="아이디찾기">아이디찾기</a>
+                            </li>
+                            <li>
+                                <a href="/user/searchPassword" title="비밀번호찾기">비밀번호찾기</a>
+                            </li>
                         </ul>
                     </div>
-                    <ul>
-                        <li class="has-sub">
-                            <a href="#">소개</a>
-                            <ul>
-                                <li><a href="#">인사말</a>
-                                </li>
-                                <li><a href="#">개요</a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="has-sub">
-                            <a href="/notice/noticeList">공지사항</a>
-                            <ul>
-                                <li><a href="/notice/noticeList">공지사항</a>
-                                </li>
-                                <li><a href="#">상담일정</a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="has-sub">
-                            <a href="#">지역센터</a>
-                            <ul>
-                                <li><a href="#">지역 상담센터</a>
-                                </li>
-                                <li><a href="#">경기 보호지원센터</a>
-                                </li>
-                                <li><a href="#">교원 치유지원센터</a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="has-sub">
-                            <a href="#">온라인 상담</a>
-                            <ul>
-                                <li><a href="#">이용방법 </a>
-                                </li>
-                                <li><a href="#">예약</a>
-                                </li>
-                                <li><a href="#">참가하기</a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="has-sub">
-                            <a href="#">고객센터</a>
-                            <ul>
-                                <li><a href="#">문의 남기기</a>
-                                </li>
-                                <li><a href="#">참가하기</a>
-                                </li>
-                            </ul>
-                        </li>
-                    </ul>
-                </nav>
-                <div class="fix_bg"></div>
-            </div>
-        </header>
-    </div>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <div id="content">
-        <h1 class="title">로그인</h1>
-        <div class="sContent">
-            <div id="cms_member_article">
-                <div class="loginTit">
-                    <p class="txt">마음을 나누는 교실에 오신것을 환영합니다.<br>서비스를 이용하기 위해서는 로그인이 필요합니다.<br>로그인 후 서비스를 이용해 주세요.</p>
-                </div>
+                    <div class="lnb mobile">
+                        <div class="home">
+                            <a href="/main/main"><img src="/img/icon_home.png" alt="홈"></a>
+                        </div>
+                        <div class="large">회원</div>
 
-                <div class="loginCon">
-                    <form id="f" name="fn_loginForm" method="post" target="submit_target">
-                        <div class="con">
-                            <input type="text" id="userId" name="userId" class="inputTxt  logTxt" maxlength="50" value="" placeholder="아이디">
-                            <input type="password" id="password" name="password" autocomplete="off" class="logTxt" maxlength="30" placeholder="비밀번호">
-                            <input type="submit" id="btnLogin" class="btn" value="로그인">
+                        <div class="small">
+                            <span data-mobile-tit="">로그인</span>
                             <ul>
-                                <li><a href="/user/searchUserId">아이디 찾기</a></li>
-                                <li><a href="/user/searchPassword">비밀번호 찾기</a></li>
-                                <li><a href="/user/userRegForm">회원가입</a></li>
+                                <li>
+                                    <a href="/user/userRegForm" title="회원가입">회원가입</a>
+                                </li>
+                                <li>
+                                    <a href="/user/login" title="로그인">로그인</a>
+                                </li>
+                                <li>
+                                    <a href="#" title="로그아웃">로그아웃</a>
+                                </li>
+                                <li>
+                                    <a href="/user/searchUserId" title="아이디찾기">아이디찾기</a>
+                                </li>
+                                <li>
+                                    <a href="/user/searchPassword" title="비밀번호찾기">비밀번호찾기</a>
+                                </li>
                             </ul>
                         </div>
-                    </form>
+                    </div>
                 </div>
+            </div>
+        </nav>
+        <div id="content">
+            <h1 class="title">로그인</h1>
+            <div class="sContent">
+                <div id="cms_member_article">
+                    <div class="loginTit">
+                        <p class="txt">마음을 나누는 교실에 오신것을 환영합니다.<br>서비스를 이용하기 위해서는 로그인이 필요합니다.<br>로그인 후 서비스를 이용해 주세요.</p>
+                    </div>
+                    <div class="loginCon">
+                        <form id="f" action="/user/loginProc" name="fn_loginForm" method="post">
+                            <div class="con">
+                                <input type="text" id="userId" name="userId" class="inputTxt  logTxt" maxlength="50"
+                                       value="" placeholder="아이디">
+                                <input type="password" id="password" name="password" autocomplete="off" class="logTxt"
+                                       maxlength="30" placeholder="비밀번호">
+                                <input type="submit" id="btnLogin" class="btn" value="로그인">
+                                <ul>
+                                    <li><a href="/user/searchUserId">아이디 찾기</a></li>
+                                    <li><a href="/user/searchPassword">비밀번호 찾기</a></li>
+                                    <li><a href="/user/userRegForm">회원가입</a></li>
+                                </ul>
+                            </div>
+                        </form>
+                    </div>
 
+                </div>
             </div>
         </div>
     </div>
-    <!--
-    <div class="container">
-        <div class="wrapper">
-            <div class="title"><span>로그인</span></div>
-            <form action="/user/insertUserInfo" method="post" onsubmit="doSubmit(this)" id="f">
-                <div class="row">
-                    <i class="fas fa-user"></i>
-                    <input type="text" name="userId" id= "userId" placeholder="아이디">
-                </div>
-                <div class="row">
-                    <i class="fas fa-lock"></i>
-                    <input type="password" name="password" id="password" placeholder="비밀번호">
-                </div>
-
-                <div class="find-btn">
-                    <button id="btnLogin" class="btn btn-success" style="background-color: #20a288" type="button">로그인</button>
-                    <button id="btnUserReg" class="btn btn-success" style="background-color: #20a288" type="button">회원가입</button>
-                    <button id="btnSearchUserId" class="btn btn-success" style="background-color: #20a288" type="button">아이디 찾기</button>
-                    <button id="btnSearchPassword" class="btn btn-success" style="background-color: #20a288" type="button">비밀번호 찾기</button>
-                </div>
-            </form>
-        </div>
-    </div>
--->
+</div>
 </body>
 
 </html>
