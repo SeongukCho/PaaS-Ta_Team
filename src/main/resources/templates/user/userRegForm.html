@@ -11,7 +11,17 @@
     <script type="text/javascript" src="/js/menu.js"></script>
     <script type="text/javascript" src="/js/common.js"></script>
 
-    <link rel="stylesheet" type="text/css" href="/css/common.css">
+    <link rel="stylesheet" href="/css/fullpage.css">
+    <link rel="stylesheet" href="/css/board.css">
+    <link rel="stylesheet" href="/css/re.css">
+    <link rel="stylesheet" href="/css/etc.css">
+    <link rel="stylesheet" href="/css/font.css">
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/carousel.css">
+    <link rel="stylesheet" href="/css/responsive.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/css/ui_content.css">
 
     <script type="text/javascript">
         // 아이디 중복체크여부 (중복 Y / 중복아님 : N)
@@ -208,6 +218,7 @@
 
                     } else { // 회원가입 실패
                         alert(json.msg); // 메시지 띄우기
+                        location.href = "/user/userRegForm"
                     }
                 }
             })
@@ -241,9 +252,9 @@
                         </ul>
                     </li>
                     <li>
-                        <a href="#"><span>지역센터</span></a>
+                        <a href="/center/ctCenter"><span>지역센터</span></a>
                         <ul>
-                            <li><a href="#">지역 상담센터</a></li>
+                            <li><a href="/center/ctCenter">지역 상담센터</a></li>
                             <li><a href="#">경기 보호지원센터</a></li>
                             <li><a href="#">교원 치유지원센터</a></li>
                         </ul>
@@ -267,11 +278,15 @@
                 </ul>
             </nav>
             <!-- //gnb -->
-            <div class="topGlob">
+            <div class="topGlob" th:if="${session.SS_USER_NAME == null}">
                 <ul>
                     <li><a href="/user/userRegForm">회원가입</a></li>
                     <li><a href="/user/login">로그인</a></li>
                 </ul>
+            </div>
+            <div class="topGlob" th:if="${session.SS_USER_NAME != null}">
+                <p th:text="'안녕하세요, ' + ${session.SS_USER_NAME} + '님!'"></p>
+                <a href="/user/logout">로그아웃</a>
             </div>
 
             <nav id="mGnb">
@@ -303,9 +318,9 @@
                         </ul>
                     </li>
                     <li class="has-sub">
-                        <a href="#">지역센터</a>
+                        <a href="/center/ctCenter">지역센터</a>
                         <ul>
-                            <li><a href="#">지역 상담센터</a>
+                            <li><a href="/center/ctCenter">지역 상담센터</a>
                             </li>
                             <li><a href="#">경기 보호지원센터</a>
                             </li>
@@ -447,7 +462,7 @@
                                 <td>
                                     <div class="input-email" style="float:left;">
                                         <input type="text" id="mbrEmail" name="email" title="이메일" class="inputTxt"
-                                               style="ime-mode:disabled;width:58%;" required="required" value="">
+                                               style="ime-mode:disabled;width:50%" required="required" value="">
                                         <span class="btnBc small green"><button id="btnEmail" type="button"
                                                                                 class="m_dup_btn">인증번호 발송</button></span>
                                     </div>
@@ -456,11 +471,13 @@
                             <tr>
                                 <th><label for="ahCode" class="required"><span>인증번호</span></label></th>
                                 <td>
-                                    <input type="text" name="authNumber" id="ahCode" class="inputTxt  w30"
-                                           style="text-align:right;ime-mode:disabled;text-align:right;" maxlength="6"
-                                           required="required" value="">
-                                    <span class="btnBc small green"><button id="btnAuth" type="button"
-                                                                            class="m_dup_btn">인증번호 확인</button></span>
+                                    <div class="input-email" style="float:left;">
+                                        <input type="text" id="ahCode" name="authNumber" title="인증번호" class="inputTxt"
+                                               style="ime-mode:disabled;width:50%" required="required" value=""
+                                               maxlength="6">
+                                        <span class="btnBc small green"><button id="btnAuth" type="button"
+                                                                                class="m_dup_btn">인증번호 확인</button></span>
+                                    </div>
                                 </td>
                             </tr>
                             </tbody>
@@ -478,5 +495,22 @@
         </div>
     </div>
 </div>
+<section id="footer">
+    <div class="container">
+        <div class="row text-center">
+            <div class="col-md-6">
+                <div class="copyright">
+                    <p>마음을 나누는 교실<span><a href="">&#9798;</a></span></p>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="designer">
+                </div>
+            </div>
+        </div>
+        <!--End of row-->
+    </div>
+    <!--End of container-->
+</section>
 </body>
 </html>

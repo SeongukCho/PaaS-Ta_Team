@@ -33,7 +33,7 @@ public class NoticeService implements INoticeService {
     @Override
     public NoticeDTO getNoticeInfo(NoticeDTO pDTO, boolean type) throws Exception {
 
-        log.info(this.getClass().getName() + ".getNoticeInfo start!");
+        log.info(this.getClass().getName() + ".getNoticeInfo Start!");
 
         // 상세보기할 때마다, 조회수 증가하기(수정보기는 제외)
         if (type) {
@@ -41,8 +41,8 @@ public class NoticeService implements INoticeService {
             noticeMapper.updateNoticeReadCnt(pDTO);
         }
 
+        log.info(this.getClass().getName() + ".getNoticeInfo End!");
         return noticeMapper.getNoticeInfo(pDTO);
-
     }
 
     @Transactional

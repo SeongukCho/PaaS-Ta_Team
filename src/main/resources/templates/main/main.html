@@ -3,17 +3,25 @@
 
 <head>
     <title>마음을 나누는 교실</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=yes">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <script type="text/javascript" src="/js/jquery-1.9.1.min.js"></script>
     <script type="text/javascript" src="/js/jquery-ui.js"></script>
     <script type="text/javascript" src="/js/menu.js"></script>
     <script type="text/javascript" src="/js/common.js"></script>
 
-    <link rel="stylesheet" href="/css/common.css"/>
-    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/fullpage.css">
+    <link rel="stylesheet" href="/css/board.css">
+    <link rel="stylesheet" href="/css/re.css">
+    <link rel="stylesheet" href="/css/etc.css">
+    <link rel="stylesheet" href="/css/font.css">
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/carousel.css">
+    <link rel="stylesheet" href="/css/responsive.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/css/ui_content.css">
 </head>
 
 <body>
@@ -41,9 +49,9 @@
                         </ul>
                     </li>
                     <li>
-                        <a href="#"><span>지역센터</span></a>
+                        <a href="/center/ctCenter"><span>지역센터</span></a>
                         <ul>
-                            <li><a href="#">지역 상담센터</a></li>
+                            <li><a href="/center/ctCenter">지역 상담센터</a></li>
                             <li><a href="#">경기 보호지원센터</a></li>
                             <li><a href="#">교원 치유지원센터</a></li>
                         </ul>
@@ -67,11 +75,15 @@
                 </ul>
             </nav>
             <!-- //gnb -->
-            <div class="topGlob">
+            <div class="topGlob" th:if="${session.SS_USER_NAME == null}">
                 <ul>
                     <li><a href="/user/userRegForm">회원가입</a></li>
                     <li><a href="/user/login">로그인</a></li>
                 </ul>
+            </div>
+            <div class="topGlob" th:if="${session.SS_USER_NAME != null}">
+                <p th:text="'안녕하세요, ' + ${session.SS_USER_NAME} + '님!'"></p>
+                <a href="/user/logout">로그아웃</a>
             </div>
 
             <nav id="mGnb">
@@ -103,9 +115,9 @@
                         </ul>
                     </li>
                     <li class="has-sub">
-                        <a href="#">지역센터</a>
+                        <a href="/center/ctCenter">지역센터</a>
                         <ul>
-                            <li><a href="#">지역 상담센터</a>
+                            <li><a href="/center/ctCenter">지역 상담센터</a>
                             </li>
                             <li><a href="#">경기 보호지원센터</a>
                             </li>
@@ -147,7 +159,7 @@
             <!-- Indicators -->
             <ol class="">
                 <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
-<!--                <li data-target="#carousel-example-generic" data-slide-to="1"></li>-->
+                <!--                <li data-target="#carousel-example-generic" data-slide-to="1"></li>-->
             </ol>
             <!-- Wrapper for slides -->
             <div class="" role="listbox">
@@ -159,15 +171,15 @@
                     </div>
                 </div>
                 <!--End of item With Active-->
-<!--                <div class="item">-->
-<!--                    <div class="slider_overlay">-->
-<!--                        <img src="/img/main_Imag2.jpg" alt="...">-->
-<!--                        <div class="carousel-caption">-->
-<!--                            <div class="slider_text">-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </div>-->
+                <!--                <div class="item">-->
+                <!--                    <div class="slider_overlay">-->
+                <!--                        <img src="/img/main_Imag2.jpg" alt="...">-->
+                <!--                        <div class="carousel-caption">-->
+                <!--                            <div class="slider_text">-->
+                <!--                            </div>-->
+                <!--                        </div>-->
+                <!--                    </div>-->
+                <!--                </div>-->
                 <!--End of Item-->
             </div>
             <!--End of Carousel Inner-->
@@ -319,12 +331,11 @@
             <div class="row text-center">
                 <div class="col-md-6">
                     <div class="copyright">
-                        <p>@ 2016 - Design By <span><a href="">&#9798;</a></span></p>
+                        <p>마음을 나누는 교실<span><a href="">&#9798;</a></span></p>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="designer">
-                        <p>A Design By <a href="#">XpeedStudio</a></p>
                     </div>
                 </div>
             </div>

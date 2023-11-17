@@ -8,10 +8,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -43,32 +40,33 @@ public class NoticeController {
      * GetMapping(value = "notice/noticeList") =>  GET방식을 통해 접속되는 URL이 notice/noticeList 경우 아래 함수를 실행함
      */
     @GetMapping(value = "noticeList")
-    public String noticeList(HttpSession session, ModelMap model)
-            throws Exception {
-
-        // 로그 찍기(추후 찍은 로그를 통해 이 함수에 접근했는지 파악하기 용이하다.)
+    public String noticeList(HttpSession session, ModelMap model, @RequestParam(defaultValue = "1") int page) throws Exception {
         log.info(this.getClass().getName() + ".noticeList Start!");
 
-        // 로그인된 사용자 아이디는 Session에 저장함
-        // 교육용으로 아직 로그인을 구현하지 않았기 때문에 Session에 데이터를 저장하지 않았음
-        // 추후 로그인을 구현할 것으로 가정하고, 공지사항 리스트 출력하는 함수에서 로그인 한 것처럼 Session 값을 생성함
-        session.setAttribute("SESSION_USER_ID", "USER01");
-
-        // 공지사항 리스트 조회하기
-        // Java 8부터 제공되는 Optional 활용하여 NPE(Null Pointer Exception) 처리
+        // 공지사항 리스트 가져오기
         List<NoticeDTO> rList = Optional.ofNullable(noticeService.getNoticeList())
                 .orElseGet(ArrayList::new);
 
-        // 조회된 리스트 결과값 넣어주기
-        model.addAttribute("rList", rList);
+        // 페이징 처리
+        int totalNotices = rList.size();
+        int noticesPerPage = 10; // 페이지당 표시할 공지사항 수 (원하는 값으로 수정)
+        int totalPages = (int) Math.ceil((double) totalNotices / noticesPerPage);
 
-        // 로그 찍기(추후 찍은 로그를 통해 이 함수 호출이 끝났는지 파악하기 용이하다.)
+        // 페이징된 공지사항 리스트 가져오기
+        List<NoticeDTO> pagedList = getPagedList(rList, page, noticesPerPage);
+
+        model.addAttribute("rList", pagedList);
+        model.addAttribute("totalPages", totalPages);
+        model.addAttribute("currentPage", page);
+
         log.info(this.getClass().getName() + ".noticeList End!");
+        return "/notice/noticeList";
+    }
 
-        // 함수 처리가 끝나고 보여줄 HTML (Thymeleaf) 파일명
-        // templates/notice/noticeList.html
-        return "notice/noticeList";
-
+    private List<NoticeDTO> getPagedList(List<NoticeDTO> allNotices, int page, int noticesPerPage) {
+        int startIndex = (page - 1) * noticesPerPage;
+        int endIndex = Math.min(startIndex + noticesPerPage, allNotices.size());
+        return allNotices.subList(startIndex, endIndex);
     }
 
     /**
@@ -87,7 +85,7 @@ public class NoticeController {
 
         // 함수 처리가 끝나고 보여줄 HTML (Thymeleaf) 파일명
         // templates/notice/noticeReg.html
-        return "notice/noticeReg";
+        return "/notice/noticeReg";
     }
 
     /**
@@ -167,6 +165,7 @@ public class NoticeController {
 
         String nSeq = CmmUtil.nvl(request.getParameter("nSeq")); // 공지글번호(PK)
 
+
         /*
          * ####################################################################################
          * 반드시, 값을 받았으면, 꼭 로그를 찍어서 값이 제대로 들어오는지 파악해야함 반드시 작성할 것
@@ -190,7 +189,7 @@ public class NoticeController {
 
         log.info(this.getClass().getName() + ".noticeInfo End!");
 
-        return "notice/noticeInfo";
+        return "/notice/noticeInfo";
     }
 
     /**
@@ -225,7 +224,7 @@ public class NoticeController {
 
         log.info(this.getClass().getName() + ".noticeEditInfo End!");
 
-        return "notice/noticeEditInfo";
+        return "/notice/noticeEditInfo";
     }
 
     /**

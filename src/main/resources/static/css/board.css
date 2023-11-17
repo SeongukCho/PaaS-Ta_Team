@@ -2,10 +2,10 @@
 .btnBc{display:inline-block;margin:1px;vertical-align:middle;}
 .btnBc a,
 .btnBc button,
-.btnBc input{position:relative; margin:0; display:-moz-inline-stack; display:block;padding:0 20px;min-width:110px;font-size:16px;color:#fff;line-height:50px;font-weight:bold;text-align:center;text-decoration:none;background-color:#00377b;cursor:pointer;transition: all 0.3s;border-radius:0;border:0}
+.btnBc input{position:relative; margin:0; display:-moz-inline-stack; display:block;padding:0 20px;min-width:140px;font-size:16px;color:#fff;line-height:50px;font-weight:bold;text-align:center;text-decoration:none;background-color:#00377b;cursor:pointer;transition: all 0.3s;border-radius:0;border:0}
 .btnBc.green a,
 .btnBc.green button,
-.btnBc.green input{background-color:#159e74}
+.btnBc.green input{background-color:lightseagreen}
 .btnBc.red a,
 .btnBc.red button,
 .btnBc.red input{background-color:#e30303}
@@ -222,7 +222,7 @@ input.check_box:checked + label::after{opacity:1}
 /* 목록A */
 .listTypeA{border-top:2px solid #363636}
 .listTypeA tr{text-align:center;}
-.listTypeA thead th{padding:15px 5px;color:#252525;font-weight:500;background:#f8f8f8;}
+.listTypeA thead th{padding:15px 5px;color:#252525;font-weight:500;background:#f8f8f8;text-align: center;}
 .listTypeA thead th:first-child{border-left:0}
 .listTypeA tbody th,.listTypeA tbody td{border:1px solid #e1e1e1;border-width:1px 0}
 .listTypeA tbody th{padding:15px 10px;background:#f8f8f8;}

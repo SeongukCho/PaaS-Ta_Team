@@ -7,7 +7,9 @@ import kopo.poly.util.CmmUtil;
 import kopo.poly.util.EncryptUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -135,7 +137,7 @@ public class UserInfoController {
                 msg = "오류로 인해 회원가입에 실패하였습니다.";
             }
         } catch (Exception e) { // 저장이 실패하면 사용자에게 보여줄 메시지
-            msg = "회원가입에 실패하였습니다. : " + e;
+            msg = "오류로 인해 회원가입에 실패하였습니다. : ";
             log.info(e.toString());
             e.printStackTrace();
         } finally {
@@ -454,6 +456,8 @@ public class UserInfoController {
         UserInfoDTO rDTO = Optional.ofNullable(userInfoService.searchUserIdOrPasswordProc(pDTO))
                 .orElseGet(UserInfoDTO::new);
 
+        log.info("userId : " + rDTO.getUserId());
+
         model.addAttribute("rDTO", rDTO);
 
         log.info(this.getClass().getName() + ".user/searchUserIdProc End!");
@@ -592,6 +596,19 @@ public class UserInfoController {
         log.info(this.getClass().getName() + ".user/newPasswordProc End!");
 
         return "/user/newPasswordResult";
+    }
+
+    @GetMapping("/logout")
+    public String logout(HttpServletRequest request) {
+        log.info(this.getClass().getName() + ".logout Start!");
+        HttpSession session = request.getSession(false);
+        if (session != null) {
+            session.invalidate(); // 세션 무효화
+        }
+
+        log.info(this.getClass().getName() + ".logout End!");
+
+        return "/main/main"; // 로그아웃 후 이동할 URL 설정
     }
 
 

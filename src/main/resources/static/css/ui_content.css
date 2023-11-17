@@ -33,7 +33,7 @@ label,button{cursor:pointer}
 label{position: relative;vertical-align:middle}
 button{margin:0;padding:0;border:0;background:none}
 a{box-sizing: border-box}
-a:link,a:visited{text-decoration:none;color:#636363;}
+a:link,a:visited{text-decoration:none;}
 a:hover,a:focus,a:active{text-decoration:underline;color:#636363}
 hr{display:none}
 legend,caption{font-size:0; width:0; height:0; line-height:0;overflow:hidden;text-indent:-9999px}
@@ -1200,7 +1200,7 @@ footer .footer_box .footer_con .footer_tel p{color:#fff; font-size: 14px;}
 
 
 .area_subVisual .inner{height:24px;}
-.area_subVisual .lnb{display:-webkit-box;display:-ms-flexbox;display:flex; position:absolute; bottom:0; width:100%; background-color:#307db8;  z-index:10;}
+.area_subVisual .lnb{display:-webkit-box;display:-ms-flexbox;display:flex; position:absolute; bottom:0; width:100%; background-color:lightseagreen;  z-index:10;}
 .area_subVisual .lnb.mobile{display:none;}
 .area_subVisual .lnb .home{width:50px; height:50px; background-color:#1a4f79; }
 .area_subVisual .lnb .home a{display:-webkit-box;display:-ms-flexbox;display:flex; -webkit-box-pack:center; -ms-flex-pack:center; justify-content:center; -webkit-box-align:center; -ms-flex-align:center; align-items:center; width:100%; height:100%;}

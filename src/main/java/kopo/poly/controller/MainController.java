@@ -17,10 +17,4 @@ public class MainController {
         log.info(this.getClass().getName() + ".main Start");
         return "main/main";
     }
-
-    @GetMapping(value = "/centerMain")
-    public String centerMain() {
-        log.info(this.getClass().getName() + ".centerMain Start");
-        return "main/centerMain";
-    }
 }

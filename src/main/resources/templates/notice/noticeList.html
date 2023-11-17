@@ -2,8 +2,28 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>공지 리스트</title>
-    <link rel="stylesheet" href="/css/table.css"/>
+    <title>공지사항</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <script type="text/javascript" src="/js/jquery-1.9.1.min.js"></script>
+    <script type="text/javascript" src="/js/jquery-ui.js"></script>
+    <script type="text/javascript" src="/js/menu.js"></script>
+    <script type="text/javascript" src="/js/common.js"></script>
+
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/table.css">
+    <link rel="stylesheet" href="/css/fullpage.css">
+    <link rel="stylesheet" href="/css/board.css">
+    <link rel="stylesheet" href="/css/re.css">
+    <link rel="stylesheet" href="/css/etc.css">
+    <link rel="stylesheet" href="/css/font.css">
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/carousel.css">
+    <link rel="stylesheet" href="/css/responsive.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/css/ui_content.css">
+
     <script type="text/javascript">
 
         //상세보기 이동
@@ -14,30 +34,269 @@
     </script>
 </head>
 <body>
-<h2>공지사항</h2>
-<hr/>
-<br/>
-<div class="divTable minimalistBlack">
-    <div class="divTableHeading">
-        <div class="divTableRow">
-            <div class="divTableHead">순번</div>
-            <div class="divTableHead">제목</div>
-            <div class="divTableHead">조회수</div>
-            <div class="divTableHead">등록자</div>
-            <div class="divTableHead">등록일</div>
+<div id="wrapper">
+    <!-- 내비게이션 바 -->
+    <header id="header" class>
+        <div class="head_box">
+            <h1 class="logo"><a href="/main/main">마음을 나누는 교실</a></h1>
+            <button type="button" class="btnMenu"><span>메뉴</span></button>
+            <!-- gnb -->
+            <nav id="gnb">
+                <ul class="gnb">
+                    <li>
+                        <a href="#"><span>소개</span></a>
+                        <ul>
+                            <li><a href="#">인사말</a></li>
+                            <li><a href="#">개요</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="/notice/noticeList"><span>공지사항</span></a>
+                        <ul>
+                            <li><a href="/notice/noticeList">공지사항</a></li>
+                            <li><a href="#">상담일정</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="/center/ctCenter"><span>지역센터</span></a>
+                        <ul>
+                            <li><a href="/center/ctCenter">지역 상담센터</a></li>
+                            <li><a href="#">경기 보호지원센터</a></li>
+                            <li><a href="#">교원 치유지원센터</a></li>
+                        </ul>
+                    </li>
+                    <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</li>
+                    <li>
+                        <a href="#"><span>온라인 상담</span></a>
+                        <ul>
+                            <li><a href="#">이용방법</a></li>
+                            <li><a href="#">예약</a></li>
+                            <li><a href="#">참가하기</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#"><span>고객센터</span></a>
+                        <ul>
+                            <li><a href="#">고객센터</a></li>
+                            <li><a href="#">FAQ</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+            <!-- //gnb -->
+            <div class="topGlob" th:if="${session.SS_USER_NAME == null}">
+                <ul>
+                    <li><a href="/user/userRegForm">회원가입</a></li>
+                    <li><a href="/user/login">로그인</a></li>
+                </ul>
+            </div>
+            <div class="topGlob" th:if="${session.SS_USER_NAME != null}">
+                <p th:text="'안녕하세요, ' + ${session.SS_USER_NAME} + '님!'"></p>
+                <a href="/user/logout">로그아웃</a>
+            </div>
+
+            <nav id="mGnb">
+                <button type="button" class="btnClose"><span>닫기</span></button>
+                <div class="mbTop">
+                    <div class="mlogo"><a href="#"><img src="/img/logo.png"></a></div>
+                    <ul>
+                        <li><a href="/user/userRegForm">회원가입</a></li>
+                        <li><a href="/user/login">로그인</a></li>
+                    </ul>
+                </div>
+                <ul>
+                    <li class="has-sub">
+                        <a href="#">소개</a>
+                        <ul>
+                            <li><a href="#">인사말</a>
+                            </li>
+                            <li><a href="#">개요</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="has-sub">
+                        <a href="/notice/noticeList">공지사항</a>
+                        <ul>
+                            <li><a href="/notice/noticeList">공지사항</a>
+                            </li>
+                            <li><a href="#">상담일정</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="has-sub">
+                        <a href="/center/ctCenter">지역센터</a>
+                        <ul>
+                            <li><a href="/center/ctCenter">지역 상담센터</a>
+                            </li>
+                            <li><a href="#">경기 보호지원센터</a>
+                            </li>
+                            <li><a href="#">교원 치유지원센터</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="has-sub">
+                        <a href="#">온라인 상담</a>
+                        <ul>
+                            <li><a href="#">이용방법 </a>
+                            </li>
+                            <li><a href="#">예약</a>
+                            </li>
+                            <li><a href="#">참가하기</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="has-sub">
+                        <a href="#">고객센터</a>
+                        <ul>
+                            <li><a href="#">문의 남기기</a>
+                            </li>
+                            <li><a href="#">참가하기</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+            <div class="fix_bg"></div>
         </div>
-    </div>
-    <div class="divTableBody">
-        <div class="divTableRow" th:each="dto: ${rList}">
-            <div class="divTableCell" th:if="${dto.noticeYn=='Y'}" th:text="공지사항"></div>
-            <div class="divTableCell" th:unless="${dto.noticeYn=='Y'}" th:text="${dto.noticeSeq}"></div>
-            <div class="divTableCell" th:text="${dto.title}" th:onclick="doDetail([[${dto.noticeSeq}]])"></div>
-            <div class="divTableCell" th:text="${dto.readCnt}"></div>
-            <div class="divTableCell" th:text="${dto.userName}"></div>
-            <div class="divTableCell" th:text="${dto.regDt}"></div>
+    </header>
+    <!-- // 내비게이션 바 -->
+    <div id="subContainer">
+        <div class="subSkin bg"></div>
+        <nav id="lnb">
+            <div class="area_subVisual">
+                <div class="inner">
+                    <div class="lnb pc">
+                        <div class="home">
+                            <a href="/main/main"><img src="/img/icon_home.png" alt="홈"></a>
+                        </div>
+                        <ul>
+                            <li>
+                                <a href="/user/userRegForm" title="회원가입">회원가입</a>
+                            </li>
+                            <li>
+                                <a href="/user/login" title="로그인">로그인</a>
+                            </li>
+                            <li>
+                                <a href="#" title="로그아웃">로그아웃</a>
+                            </li>
+                            <li>
+                                <a href="/user/searchUserId" title="아이디찾기">아이디찾기</a>
+                            </li>
+                            <li>
+                                <a href="/user/searchPassword" title="비밀번호찾기">비밀번호찾기</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="lnb mobile">
+                        <div class="home">
+                            <a href="/main/main"><img src="/img/icon_home.png" alt="홈"></a>
+                        </div>
+                        <div class="large">회원</div>
+
+                        <div class="small">
+                            <span data-mobile-tit="">로그인</span>
+                            <ul>
+                                <li>
+                                    <a href="/user/userRegForm" title="회원가입">회원가입</a>
+                                </li>
+                                <li>
+                                    <a href="/user/login" title="로그인">로그인</a>
+                                </li>
+                                <li>
+                                    <a href="#" title="로그아웃">로그아웃</a>
+                                </li>
+                                <li>
+                                    <a href="/user/searchUserId" title="아이디찾기">아이디찾기</a>
+                                </li>
+                                <li>
+                                    <a href="/user/searchPassword" title="비밀번호찾기">비밀번호찾기</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+        <div id="content">
+            <h1 class="title">공지사항</h1>
+            <div id="cms_board_article">
+                <table class="listTypeA">
+                    <caption>공지사항</caption>
+                    <colgroup>
+                        <col width="30px" class="mbNone">
+                        <col width="120px" class="mbNone">
+                        <col width="60px" class="mbNone">
+                        <col width="60px" class="mbNone">
+                        <col width="30px" class="mbNone">
+                    </colgroup>
+                    <thead>
+                    <tr>
+                        <th scope="col" class="mbNone" style="background-color: #90d9d5">번호</th>
+                        <th scope="col" class="mbNone" style="background-color: #90d9d5">제목</th>
+                        <th scope="col" class="mbNone" style="background-color: #90d9d5">작성자</th>
+                        <th scope="col" class="mbNone" style="background-color: #90d9d5">작성일</th>
+                        <th scope="col" class="end mbNone" style="background-color: #90d9d5">조회수</th>
+                        <!-- 마지막 th에 class="end" -->
+                    </tr>
+                    </thead>
+                    <tbody class="alignC">
+                    <tr th:each="dto : ${rList}">
+                        <td class="mbNone" th:if="${dto.noticeYn=='Y'}">공지</td>
+                        <td class="mbNone" th:unless="${dto.noticeYn=='Y'}" th:text="${dto.noticeSeq}"></td>
+                        <td class="subject" th:attr="onclick='doDetail(\'' + ${dto.noticeSeq} + '\')'"
+                            th:text="${dto.title}"></td>
+                        <td class="mbNone" th:text="${dto.userId}"></td>
+                        <td class="mbNone" th:text="${dto.regDt}"></td>
+                        <td class="mbNone" th:text="${dto.readCnt}"></td>
+                    </tr>
+                    </tbody>
+                </table>
+                <div class="topGlob" th:if="${session.SS_USER_NAME == 'admin'}">
+                    <span class="btnBc" style="float: right"><a href="/notice/noticeReg" title="글쓰기" class="fn_btn_list">글쓰기</a></span>
+                </div>
+                <div class="topGlob" th:if="${session.SS_USER_NAME != 'admin'}">
+                </div>
+            </div>
         </div>
     </div>
 </div>
-<a href="/notice/noticeReg">글쓰기</a>
+<nav aria-label="Page navigation example" style="text-align: center;">
+    <ul class="pagination">
+        <li class="page-item">
+            <a class="page-link" th:href="@{/notice/noticeList?page=1}">&laquo;</a>
+        </li>
+        <li class="page-item" th:if="${currentPage > 1}">
+            <a class="page-link" th:href="@{/notice/noticeList(page=${currentPage - 1})}">&lt;</a>
+        </li>
+        <li class="page-item" th:each="pageNumber : ${#numbers.sequence(1, totalPages)}"
+            th:class="${pageNumber == currentPage ? 'active' : ''}">
+            <a class="page-link" th:href="@{/notice/noticeList(page=${pageNumber})}"
+               th:text="${pageNumber}"></a>
+        </li>
+        <li class="page-item" th:if="${currentPage < totalPages}">
+            <a class="page-link" th:href="@{/notice/noticeList(page=${currentPage + 1})}">&gt;</a>
+        </li>
+        <li class="page-item">
+            <a class="page-link" th:href="@{/notice/noticeList(page=${totalPages})}">&raquo;</a>
+        </li>
+    </ul>
+</nav>
+<section id="footer">
+    <div class="container">
+        <div class="row text-center">
+            <div class="col-md-6">
+                <div class="copyright">
+                    <p>마음을 나누는 교실<span><a href="">&#9798;</a></span></p>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="designer">
+                </div>
+            </div>
+        </div>
+        <!--End of row-->
+    </div>
+    <!--End of container-->
+</section>
 </body>
 </html>
