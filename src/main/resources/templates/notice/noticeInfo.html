@@ -294,9 +294,11 @@
                         <p>&nbsp;</p>
                     </div>
                 </div>
-                <div class="btnWrap">
-                    <button id="btnEdit" type="button">수정</button>
+                <div class="btnWrapA" th:if="${session.SS_USER_NAME == 'admin'}">
+                    <button id="btnEdit" type="button" >수정</button>
                     <button id="btnDelete" type="button">삭제</button>
+                </div>
+                <div class="btnWrapB">
                     <span class="btnBc"><a href="/notice/noticeList" title="목록" class="fn_btn_list">목록</a></span>
                 </div>
             </div>

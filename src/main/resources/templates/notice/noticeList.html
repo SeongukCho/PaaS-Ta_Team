@@ -98,7 +98,7 @@
             <nav id="mGnb">
                 <button type="button" class="btnClose"><span>닫기</span></button>
                 <div class="mbTop">
-                    <div class="mlogo"><a href="#"><img src="/img/logo.png"></a></div>
+                    <div class="mlogo"><a href="/main/main"><img src="/img/logo.png"></a></div>
                     <ul>
                         <li><a href="/user/userRegForm">회원가입</a></li>
                         <li><a href="/user/login">로그인</a></li>
@@ -162,6 +162,7 @@
     <!-- // 내비게이션 바 -->
     <div id="subContainer">
         <div class="subSkin bg"></div>
+
         <nav id="lnb">
             <div class="area_subVisual">
                 <div class="inner">
@@ -177,7 +178,7 @@
                                 <a href="/user/login" title="로그인">로그인</a>
                             </li>
                             <li>
-                                <a href="#" title="로그아웃">로그아웃</a>
+                                <a href="/user/logout" title="로그아웃">로그아웃</a>
                             </li>
                             <li>
                                 <a href="/user/searchUserId" title="아이디찾기">아이디찾기</a>
@@ -191,32 +192,18 @@
                         <div class="home">
                             <a href="/main/main"><img src="/img/icon_home.png" alt="홈"></a>
                         </div>
-                        <div class="large">회원</div>
+                        <div class="large">
+                            <a href="/notice/noticeList" style="color: #ffffff" title="공지사항">공지사항</a>
+                        </div>
 
                         <div class="small">
-                            <span data-mobile-tit="">로그인</span>
-                            <ul>
-                                <li>
-                                    <a href="/user/userRegForm" title="회원가입">회원가입</a>
-                                </li>
-                                <li>
-                                    <a href="/user/login" title="로그인">로그인</a>
-                                </li>
-                                <li>
-                                    <a href="#" title="로그아웃">로그아웃</a>
-                                </li>
-                                <li>
-                                    <a href="/user/searchUserId" title="아이디찾기">아이디찾기</a>
-                                </li>
-                                <li>
-                                    <a href="/user/searchPassword" title="비밀번호찾기">비밀번호찾기</a>
-                                </li>
-                            </ul>
+                            <span data-mobile-tit=""><a href="/user/logout" title="로그아웃" style="color: #ffffff">로그아웃</a></span>
                         </div>
                     </div>
                 </div>
             </div>
         </nav>
+
         <div id="content">
             <h1 class="title">공지사항</h1>
             <div id="cms_board_article">
@@ -224,16 +211,16 @@
                     <caption>공지사항</caption>
                     <colgroup>
                         <col width="30px" class="mbNone">
-                        <col width="120px" class="mbNone">
-                        <col width="60px" class="mbNone">
+                        <col width="120px">
+                        <col width="60px">
                         <col width="60px" class="mbNone">
                         <col width="30px" class="mbNone">
                     </colgroup>
                     <thead>
                     <tr>
                         <th scope="col" class="mbNone" style="background-color: #90d9d5">번호</th>
-                        <th scope="col" class="mbNone" style="background-color: #90d9d5">제목</th>
-                        <th scope="col" class="mbNone" style="background-color: #90d9d5">작성자</th>
+                        <th scope="col" style="background-color: #90d9d5">제목</th>
+                        <th scope="col" style="background-color: #90d9d5">작성자</th>
                         <th scope="col" class="mbNone" style="background-color: #90d9d5">작성일</th>
                         <th scope="col" class="end mbNone" style="background-color: #90d9d5">조회수</th>
                         <!-- 마지막 th에 class="end" -->
@@ -245,14 +232,15 @@
                         <td class="mbNone" th:unless="${dto.noticeYn=='Y'}" th:text="${dto.noticeSeq}"></td>
                         <td class="subject" th:attr="onclick='doDetail(\'' + ${dto.noticeSeq} + '\')'"
                             th:text="${dto.title}"></td>
-                        <td class="mbNone" th:text="${dto.userId}"></td>
+                        <td th:text="${dto.userId}"></td>
                         <td class="mbNone" th:text="${dto.regDt}"></td>
                         <td class="mbNone" th:text="${dto.readCnt}"></td>
                     </tr>
                     </tbody>
                 </table>
                 <div class="topGlob" th:if="${session.SS_USER_NAME == 'admin'}">
-                    <span class="btnBc" style="float: right"><a href="/notice/noticeReg" title="글쓰기" class="fn_btn_list">글쓰기</a></span>
+                    <span class="btnBc" style="float: right"><a href="/notice/noticeReg" title="글쓰기"
+                                                                class="fn_btn_list">글쓰기</a></span>
                 </div>
                 <div class="topGlob" th:if="${session.SS_USER_NAME != 'admin'}">
                 </div>
