@@ -2,7 +2,7 @@
 .btnBc{display:inline-block;margin:1px;vertical-align:middle;}
 .btnBc a,
 .btnBc button,
-.btnBc input{position:relative; margin:0; display:-moz-inline-stack; display:block;padding:0 20px;min-width:140px;font-size:16px;color:#fff;line-height:50px;font-weight:bold;text-align:center;text-decoration:none;background-color:#00377b;cursor:pointer;transition: all 0.3s;border-radius:0;border:0}
+.btnBc input{position:relative; margin:0; display:-moz-inline-stack; display:block;padding:0 20px;min-width:140px;font-size:16px;color:#fff;line-height:50px;font-weight:bold;text-align:center;text-decoration:none;background-color:lightseagreen;cursor:pointer;transition: all 0.3s;border-radius:0;border:0}
 .btnBc.green a,
 .btnBc.green button,
 .btnBc.green input{background-color:lightseagreen}
@@ -469,6 +469,16 @@ input[type="submit"],input[type="button"]{cursor:pointer;}
 .btnWrap::after{display:block;clear:both;content:''}
 .btnWrap.right{text-align:right}
 .btnWrap.left{text-align:left}
+
+.btnWrapA{margin:10px 0;text-align:right}
+.btnWrapA::after{display:block;clear:both;content:''}
+.btnWrapA.right{text-align:right}
+.btnWrapA.left{text-align:left}
+
+.btnWrapB{margin:10px 0;text-align:center}
+.btnWrapB::after{display:block;clear:both;content:''}
+.btnWrapB.right{text-align:right}
+.btnWrapB.left{text-align:left}
 
 .box .photo img{height:200px}
 
