@@ -15,6 +15,6 @@ public class MainController {
     @GetMapping(value = "/main")
     public String main() {
         log.info(this.getClass().getName() + ".main Start!!!");
-        return "main/main";
+        return "/main/main";
     }
 }

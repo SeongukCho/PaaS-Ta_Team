@@ -13,9 +13,9 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.Optional;
 
 @Slf4j
+@RequestMapping(value = "Geocoding")
 @RequiredArgsConstructor
 @RestController
-@RequestMapping(value = "Geocoding")
 public class GeocodingController {
 
     private final IGeocodingService geocodingService;
@@ -39,3 +39,5 @@ public class GeocodingController {
         return rDTO;
     }
 }
+
+
