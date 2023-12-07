@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>상세정보 페이지</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 20px;
+            background-color: #f0f0f0;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        table {
+            width: 100%;
+            margin-top: 10px;
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            border: 1px solid #90d9d5;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #90d9d5;
+            color: white;
+            width: 135px;
+        }
+
+        .scrollable {
+            max-height: 100px;
+            overflow-y: auto;
+            border: 1px solid #90d9d5;
+            padding: 8px;
+            margin-top: 10px;
+            border-radius: 5px;
+        }
+
+        .container th {
+            border: 2px solid #90d9d5;
+        }
+
+        /* 목록 버튼 스타일 */
+        .list-button {
+            text-decoration: none;
+            color: #fff;
+            background-color: #90d9d5;
+            padding: 10px 20px;
+            border-radius: 5px;
+            margin-right: 1px;
+            display: inline-block;
+            margin-left: auto;
+            text-align: right;
+            margin-top: 10px; /* 필요에 따라 조절 */
+
+
+        }
+
+        .list-button:hover {
+            background-color: #45a049;
+        }
+
+        /* 목록 버튼 위치 조절 */
+        .list-button-container {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+        }
+
+    </style>
+</head>
+<body>
+<h1>센터 상세정보 페이지</h1>
+<div class="container">
+    <table>
+        <tbody>
+        <tr th:each="dto, iterStat : ${rList}">
+            <th>관할 지역</th>
+            <td th:text="${dto.region != null ? dto.region : ' - '}"></td>
+        </tr>
+
+        <tr th:each="dto, iterStat : ${rList}">
+            <th>센터 분류</th>
+            <td th:text="${dto.centerType != null ? dto.centerType : ' - '}"></td>
+        </tr>
+
+        <tr th:each="dto, iterStat : ${rList}">
+            <th>센터 명</th>
+            <td th:text="${dto.centerName != null ? dto.centerName : ' - '}"></td>
+        </tr>
+
+        <tr th:each="dto, iterStat : ${rList}">
+            <th>주소</th>
+            <td th:text="${dto.address != null ? dto.address : ' - '}"></td>
+        </tr>
+
+        <tr th:each="dto, iterStat : ${rList}">
+            <th>대표 연락처</th>
+            <td th:text="${dto.phone != null ? dto.phone : ' - '}"></td>
+        </tr>
+
+        <tr th:each="dto, iterStat : ${rList}">
+            <th>찾아오시는 길 <br>
+                <button th:attr="data-mapUrl=${dto.mapUrl}" onclick="openNaverMap(this)">네이버 지도로 보기</button>
+            </th>
+            <td th:text="${dto.directions != null ? dto.directions : ' - '}"></td>
+        </tr>
+
+
+        <tr th:each="dto, iterStat : ${rList}">
+            <th>센터 업무</th>
+            <td th:text="${dto.business != null ? dto.business : ' - '}"></td>
+        </tr>
+
+        <tr th:each="dto, iterStat : ${rList}">
+            <th>기타</th>
+            <td th:text="${dto.other != null ? dto.other : ' - '}"></td>
+        </tr>
+        </tbody>
+    </table>
+    <div class="topGlob" th:if="${session.SS_USER_NAME == 'admin'}">
+        <span class="btnBc" style="float: right"> <a href="/center/centerEditInfo" class="list-button">수정</a></span>
+        <span class="btnBc" style="float: right">  <a href="/center/centerDelete" class="list-button">삭제</a></span>
+    </div>
+    <div class="topGlob" th:if="${session.SS_USER_NAME != 'admin'}">
+    </div>
+</div>
+<script>
+    // 여기에 DB에서 정보를 가져와서 각 항목에 동적으로 대입하는 로직을 추가하세요.
+
+    function openNaverMap(button) {
+        var mapUrl = button.getAttribute('data-mapUrl');
+        // 이제 mapUrl을 사용할 수 있습니다.
+        window.open(mapUrl, "_blank", "width=800, height=600");
+    }
+
+    window.onload = function () {
+        // URL에서 seq 값을 추출
+        var seq = new URLSearchParams(window.location.search).get('seq');
+
+        // seq 값을 다음 HTML 페이지로 전달할 수 있도록 링크를 생성
+        var editLink = document.querySelector('.list-button[href="/center/centerEditInfo"]');
+        var deleteLink = document.querySelector('.list-button[href="/center/centerDelete"]');
+
+        // seq 값이 존재하면 링크에 추가
+        if (seq) {
+            editLink.href += "?seq=" + seq;
+            deleteLink.href += "?seq=" + seq;
+        }
+    };
+</script>
+</body>
+</html>

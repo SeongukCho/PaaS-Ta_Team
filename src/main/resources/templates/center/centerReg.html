@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>상담센터 정보 등록 페이지</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      margin: 20px;
+      background-color: #f0f0f0;
+    }
+    h1 {
+      text-align: center;
+      color: #333;
+    }
+    form {
+      max-width: 600px;
+      margin: 0 auto;
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    label, input, select, textarea, button {
+      width: 100%;
+      margin-bottom: 10px;
+    }
+    label {
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+    input, select, textarea {
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      font-size: 14px;
+    }
+    select {
+      cursor: pointer;
+    }
+    textarea {
+      resize: vertical;
+      overflow-y: auto;
+    }
+    button {
+      background-color: #90d9d5;
+      color: #fff;
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+      transition: background-color 0.3s;
+    }
+    button:hover {
+      background-color: #45a049;
+    }
+    .error-message {
+      color: red;
+      margin-top: 5px;
+    }
+
+  </style>
+</head>
+<body>
+<h1>상담센터 정보 등록 페이지</h1>
+<form id="centerInsertForm" method="post" action="/center/centerInsert">
+  <label for="region">지역명:</label>
+  <select id="region" name="region" required>
+    <option value="" disabled selected hidden>지역을 선택하세요</option>
+    <option value="서울">서울</option>
+    <option value="경기">경기</option>
+    <option value="부산">부산</option>
+    <option value="인천">인천</option>
+    <option value="세종">세종</option>
+    <option value="강원">강원</option>
+    <option value="대구">대구</option>
+    <option value="대전">대전</option>
+    <option value="광주">광주</option>
+    <option value="울산">울산</option>
+    <option value="충북">충북</option>
+    <option value="충남">충남</option>
+    <option value="전북">전북</option>
+    <option value="전남">전남</option>
+    <option value="경북">경북</option>
+    <option value="경남">경남</option>
+    <option value="제주">제주</option>
+  </select>
+  <span class="error-message" id="regionError"></span>
+
+  <label for="centerType">센터분류:</label>
+  <select id="centerType" name="centerType" required>
+    <option value="" disabled selected hidden>센터분류를 선택하세요</option>
+    <option value="교원치유센터">교원치유센터</option>
+    <option value="지역 상담센터">지역 상담센터</option>
+    <option value="정신건강복지센터">정신건강복지센터</option>
+    <option value="기타">기타</option>
+  </select>
+  <span class="error-message" id="centerTypeError"></span>
+
+  <label for="centerName">센터명:</label>
+  <input type="text" id="centerName" name="centerName" placeholder="예시: 행복상담센터" required>
+  <span class="error-message" id="centerNameError"></span>
+
+  <label for="address">주소:</label>
+  <input type="text" id="address" name="address" placeholder="예시: 서울특별시 강남구 강남대로 1234번지" required>
+  <span class="error-message" id="addressError"></span>
+
+  <label for="phone">대표 연락처:</label>
+  <input type="tel" id="phone" name="phone" placeholder="예시: 010-1234-5678" required>
+  <span class="error-message" id="phoneError"></span>
+
+  <label for="directions">찾아오시는 길:</label>
+  <textarea id="directions" name="directions" rows="4" placeholder="예시: 버스 352번 타고 행복상담센터 정차"></textarea>
+
+  <label for="business">센터업무:</label>
+  <textarea id="business" name="business" rows="4" placeholder="예시: 상담 및 심리치료"></textarea>
+
+  <label for="other">기타:</label>
+  <textarea id="other" name="other" rows="4" placeholder="예시: 특이사항이나 추가 정보를 입력하세요"></textarea>
+
+  <button type="submit">등록</button>
+</form>
+
+<div id="successMessage" style="color: green; margin-top: 10px;"></div>
+
+<script>
+  function validateForm() {
+    var region = document.getElementById('region').value;
+    var centerType = document.getElementById('centerType').value;
+    var centerName = document.getElementById('centerName').value;
+    var address = document.getElementById('address').value;
+    var phone = document.getElementById('phone').value;
+
+    document.getElementById('regionError').innerHTML = '';
+    document.getElementById('centerTypeError').innerHTML = '';
+    document.getElementById('centerNameError').innerHTML = '';
+    document.getElementById('addressError').innerHTML = '';
+    document.getElementById('phoneError').innerHTML = '';
+
+    if (region === '') {
+      document.getElementById('regionError').innerHTML = '지역명을 입력하세요.';
+      return false;
+    }
+
+    if (centerType === '') {
+      document.getElementById('centerTypeError').innerHTML = '센터분류를 선택하세요.';
+      return false;
+    }
+
+    if (centerName === '') {
+      document.getElementById('centerNameError').innerHTML = '센터명을 입력하세요.';
+      return false;
+    }
+
+    if (address === '') {
+      document.getElementById('addressError').innerHTML = '주소를 입력하세요.';
+      return false;
+    }
+
+    if (phone === '') {
+      document.getElementById('phoneError').innerHTML = '대표 연락처를 입력하세요.';
+      return false;
+    }
+
+    // 유효성 검사 통과 시 메시지 출력 및 페이지 이동 로직 추가
+    document.getElementById('successMessage').innerHTML = '등록 완료 되었습니다.';
+    setTimeout(function() {
+      window.location.href = '/center/centerReg';
+    }, 4000);  // 4초 후에 리디렉션
+    return true;
+  }
+</script>
+</body>
+</html>

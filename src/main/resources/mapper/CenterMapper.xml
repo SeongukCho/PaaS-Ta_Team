@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kopo.poly.persistance.mapper.ICenterMapper">
+
+    <!-- 센터 리스트 쿼리 -->
+    <select id="getCenterList" resultType="CenterDTO">
+        SELECT
+            SEQ, REGION, CENTER_NAME, ADDRESS, PHONE, X, Y,
+            CASE
+                WHEN REGION = '서울' THEN 1
+                WHEN REGION = '경기' THEN 2
+                WHEN REGION = '부산' THEN 3
+                WHEN REGION = '인천' THEN 4
+                WHEN REGION = '세종' THEN 5
+                WHEN REGION = '강원' THEN 6
+                WHEN REGION = '대구' THEN 7
+                WHEN REGION = '대전' THEN 8
+                WHEN REGION = '광주' THEN 9
+                WHEN REGION = '울산' THEN 10
+                WHEN REGION = '충북' THEN 11
+                WHEN REGION = '충남' THEN 12
+                WHEN REGION = '전북' THEN 13
+                WHEN REGION = '전남' THEN 14
+                WHEN REGION = '경북' THEN 15
+                WHEN REGION = '경남' THEN 16
+                WHEN REGION = '제주' THEN 17
+                ELSE 0  -- 예외 처리, 다른 지역 이외의 경우
+                END AS region_number
+        FROM Center
+        ORDER BY region_number ASC;
+    </select>
+
+    <!-- 센터 등록 쿼리 -->
+    <insert id="insertCenterInfo" parameterType="CenterDTO">
+        <selectKey keyProperty="seq" resultType="int" order="BEFORE">
+            SELECT COALESCE(MAX(seq), 0) + 1 FROM Center
+        </selectKey>
+        INSERT INTO Center
+        (
+        SEQ, REGION, CENTER_NAME, ADDRESS, PHONE, CENTER_TYPE,
+        DIRECTIONS, BUSINESS, OTHER, X, Y, MAPURL
+        )
+        VALUES (
+        #{seq}, #{region}, #{centerName}, #{address}, #{phone},
+        #{centerType}, #{directions}, #{business}, #{other}, #{x}, #{y}, #{mapUrl}
+        )
+    </insert>
+
+    <!-- 센터 상세보기 쿼리 -->
+    <select id="getCenterInfo" resultType="CenterDTO">
+        SELECT SEQ, REGION, CENTER_NAME, ADDRESS, PHONE, CENTER_TYPE,
+               DIRECTIONS, BUSINESS, OTHER, X, Y
+        FROM Center
+        WHERE seq = #{seq};
+    </select>
+
+    <!-- 센터 수정 쿼리 -->
+    <update id="updateCenterInfo" parameterType="CenterDTO">
+        UPDATE Center
+        SET
+            REGION = #{region},
+            CENTER_NAME = #{centerName},
+            ADDRESS = #{address},
+            PHONE = #{phone},
+            CENTER_TYPE = #{centerType},
+            DIRECTIONS = #{directions},
+            BUSINESS = #{business},
+            OTHER = #{other},
+            X = #{x},
+            Y = #{y},
+            MAPURL = #{mapUrl}
+        WHERE seq = #{seq};
+    </update>
+
+
+    <!-- 센터 삭제 쿼리 -->
+    <delete id="deleteCenterInfo" parameterType="CenterDTO">
+        DELETE FROM Center
+        WHERE SEQ = #{seq};
+    </delete>
+
+    <!-- 도시와 주소로 센터 검색 쿼리 -->
+    <select id="searchCenter_all" parameterType="map" resultType="CenterDTO">
+        SELECT SEQ, REGION, CENTER_NAME, ADDRESS, PHONE, X, Y
+        FROM Center
+        WHERE (REGION = #{isSido})
+          AND (ADDRESS LIKE CONCAT('%', #{centerAddress}, '%'))
+        ORDER BY REGION, CENTER_NAME DESC
+    </select>
+
+    <!-- 도시로 센터 검색 쿼리 -->
+    <select id="searchCenter_sido" parameterType="String" resultType="CenterDTO">
+        SELECT SEQ, REGION, CENTER_NAME, ADDRESS, PHONE, X, Y
+        FROM Center
+        WHERE REGION = #{isSido}
+        ORDER BY REGION, CENTER_NAME DESC
+    </select>
+
+    <!-- 주소로 센터 검색 쿼리 -->
+    <select id="searchCenter_address" parameterType="String" resultType="CenterDTO">
+        SELECT SEQ, REGION, CENTER_NAME, ADDRESS, PHONE, X, Y
+        FROM Center
+        WHERE ADDRESS LIKE CONCAT('%', #{centerAddress}, '%')
+        ORDER BY REGION, CENTER_NAME DESC
+    </select>
+
+    <!-- 센터명을 클릭하였을 때 조회해줄 쿼리-->
+    <select id="searchCenterName" parameterType="String" resultType="CenterDTO">
+        SELECT SEQ, REGION, CENTER_NAME, ADDRESS, PHONE, CENTER_TYPE,
+               DIRECTIONS, BUSINESS, OTHER, MAPURL
+        FROM Center
+        WHERE SEQ = #{seq}
+        ORDER BY REGION, CENTER_NAME DESC
+    </select>
+
+
+</mapper>

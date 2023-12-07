@@ -1,19 +1,24 @@
 package kopo.poly.service.impl;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import kopo.poly.dto.CenterDTO;
 import kopo.poly.dto.GeocodingDTO;
 import kopo.poly.service.IGeocodingService;
 import kopo.poly.util.CmmUtil;
 import kopo.poly.util.NetworkUtil;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.net.URLEncoder;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 @Slf4j
+@RequiredArgsConstructor
 @Service
 public class GeocodingService implements IGeocodingService {
 
@@ -30,58 +35,66 @@ public class GeocodingService implements IGeocodingService {
         Map<String, String> requestHeader = new HashMap<>();
         requestHeader.put("X-NCP-APIGW-API-KEY-ID", ClientID);
         requestHeader.put("X-NCP-APIGW-API-KEY", ClientSecret);
-
-        log.info("ClientID : " + ClientID);
-        log.info("ClientSecret : " + ClientSecret);
-
         return requestHeader;
     }
 
-
     @Override
-    public GeocodingDTO Geocoding(GeocodingDTO pDTO) throws Exception {
+    public CenterDTO Geocoding(CenterDTO pDTO) throws Exception {
+        log.info(this.getClass().getName() + ".Geocoding Start!");
 
-      log.info(this.getClass().getName() + ".Geocoding Start!");
+        log.info("변환할 address : " + pDTO.getAddress());
+        String address = CmmUtil.nvl(pDTO.getAddress());  // 변환할 주소
 
-      String address = CmmUtil.nvl(pDTO.getAddress());  // 변환할 주소
+        pDTO.setAddress(address);
 
-      //호출할 Geocoding API 정보 설정
-      String param = "query=" + URLEncoder.encode(address, "UTF-8");
+        // 호출할 Geocoding API 정보 설정
+        String param = "?query=" + URLEncoder.encode(address, "UTF-8");
 
-        log.info("씹" + NetworkUtil.get(IGeocodingService.GeocodingApiURL, param, this.setNaverInfo()));
+        log.info("query : " + param);
 
-        //GeocodingAPI 호출하기
-        String json = NetworkUtil.get(IGeocodingService.GeocodingApiURL, param, this.setNaverInfo());
-        /**
-         * 호출 예시)
-         * json =
-         * https://naveropenapi.apigw.ntruss.com/map-geocode/v2/geocodem,
-         * X-NCP-APIGW-API-KEY-ID : "ClientID",
-         * X-NCP-APIGW-API-KEY : "ClientSecret",
-         * "query= {변활할 주소}"
-         */
+        String url = IGeocodingService.GeocodingApiURL + param;
 
-        //json 확인
-        log.info("json : "+ json);
+        log.info("url : " + url);
 
-        //Json 구조를 Map 데이터 구조로 변경
-        GeocodingDTO rDTO = new ObjectMapper().readValue(json, GeocodingDTO.class);
+        // 헤더 정보 설정
+        Map<String, String> headers = setNaverInfo();
 
-        //address 저장
-        rDTO.setAddress(address);
+        // GeocodingAPI 호출하기
+        String json = NetworkUtil.get(url, param, headers);
 
-      log.info(this.getClass().getName() + ".Geocoding End!");
+        // json 확인
+        log.info("json : " + json);
 
-        return rDTO;
-    }
+        // Json 구조를 Map 데이터 구조로 변경
+//        CenterDTO rDTO = new ObjectMapper().readValue(json, CenterDTO.class);
 
-    @Override
-    public String insertGeocodingInfo(GeocodingDTO pDTO) {
-        return null;
-    }
+        // 수정된 부분
+        Map<String, Object> rMap = new ObjectMapper().readValue(json, LinkedHashMap.class);
+        List<Map<String, Object>> myList = (List<Map<String, Object>>) rMap.get("addresses");  // 수정된 부분
 
-    @Override
-    public String updateGeocoding(GeocodingDTO centerDTO) {
-        return null;
+        if (myList != null && !myList.isEmpty()) {
+            String x = (String) myList.get(0).get("x");
+            String y = (String) myList.get(0).get("y");
+
+            // x 값 처리
+            double xValue = Double.parseDouble(x);
+            x = String.format("%.5f", xValue); // 소수점 다섯 자리까지 유지
+
+            // y 값 처리
+            double yValue = Double.parseDouble(y);
+            y = String.format("%.5f", yValue); // 소수점 다섯 자리까지 유지
+
+            pDTO.setX(x);
+            pDTO.setY(y);
+
+            log.info("값이 잘 들어갔는지 볼까?");
+            log.info("x 주소 : " + pDTO.getX());
+            log.info("y 주소 : " + pDTO.getY());
+            log.info("address : " + pDTO.getAddress());
+        } else {
+            log.warn("주소 정보가 없습니다.");
+        }
+
+        return pDTO;
     }
 }

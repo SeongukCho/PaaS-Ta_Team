@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>지원센터 정보보기</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <script type="text/javascript"
+            src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=6589bhpize"></script>
+
+    <script type="text/javascript" src="/js/jquery-1.9.1.min.js"></script>
+    <script type="text/javascript" src="/js/jquery-ui.js"></script>
+    <script type="text/javascript" src="/js/menu.js"></script>
+    <script type="text/javascript" src="/js/common.js"></script>
+
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/table.css">
+    <link rel="stylesheet" href="/css/fullpage.css">
+    <link rel="stylesheet" href="/css/boardnav.css">
+    <link rel="stylesheet" href="/css/re.css">
+    <link rel="stylesheet" href="/css/etc.css">
+    <link rel="stylesheet" href="/css/font.css">
+    <link rel="stylesheet" href="/css/carousel.css">
+    <link rel="stylesheet" href="/css/responsive.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/ui_content.css">
+    <link rel="stylesheet" type="text/css" href="/css/main.css">
+
+    <style>
+        .subject {
+            cursor: pointer;
+        }
+
+        /* 목록 버튼 스타일 */
+        .list-button {
+            text-decoration: none;
+            color: #fff;
+            background-color: #90d9d5;
+            padding: 10px 20px;
+            border-radius: 5px;
+            margin-right: 1px;
+            display: inline-block;
+            margin-left: auto;
+            text-align: right;
+            margin-top: 10px; /* 필요에 따라 조절 */
+
+
+        }
+
+        .list-button:hover {
+            background-color: #45a049;
+        }
+
+        /* 목록 버튼 위치 조절 */
+        .list-button-container {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+        }
+    </style>
+
+</head>
+<body>
+<div id="wrapper">
+    <!-- 내비게이션 바 -->
+    <header id="header" class>
+        <div class="head_box">
+            <h1 class="logo"><a href="/main/main">마음을 나누는 교실</a></h1>
+            <button type="button" class="btnMenu"><span>메뉴</span></button>
+            <!-- gnb -->
+            <nav id="gnb">
+                <ul class="gnb">
+                    <li>
+                        <a href="#"><span>소개</span></a>
+                        <ul>
+                            <li><a href="#">인사말</a></li>
+                            <li><a href="#">개요</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="/notice/noticeList"><span>공지사항</span></a>
+                        <ul>
+                            <li><a href="/notice/noticeList">공지사항</a></li>
+
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="/center/center"><span>상담센터</span></a>
+                        <ul>
+                            <li><a href="/center/center">상담센터</a></li>
+                        </ul>
+                    </li>
+                    <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</li>
+                    <li>
+                        <a href="#"><span>온라인 상담</span></a>
+                        <ul>
+
+                            <li><a href="/online/calendar">예약</a></li>
+
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#"><span>고객센터</span></a>
+                        <ul>
+                            <li><a href="#">고객센터</a></li>
+                            <li><a href="#">FAQ</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+            <!-- //gnb -->
+            <div class="topGlob" th:if="${session.SS_USER_NAME == null}">
+                <ul>
+                    <li><a href="/user/userRegForm">회원가입</a></li>
+                    <li><a href="/user/login">로그인</a></li>
+                </ul>
+            </div>
+            <div class="topGlob" th:if="${session.SS_USER_NAME != null}">
+                <p th:text="'안녕하세요, ' + ${session.SS_USER_NAME} + '님!'"></p>
+                <a href="/user/logout">로그아웃</a>
+            </div>
+
+            <nav id="mGnb">
+                <button type="button" class="btnClose"><span>닫기</span></button>
+                <div class="mbTop">
+                    <div class="mlogo"><a href="/main/main"><img src="/img/logo.png"></a></div>
+                    <ul>
+                        <li><a href="/user/userRegForm">회원가입</a></li>
+                        <li><a href="/user/login">로그인</a></li>
+                    </ul>
+                </div>
+                <ul>
+                    <li class="has-sub">
+                        <a href="#">소개</a>
+                        <ul>
+                            <li><a href="#">인사말</a>
+                            </li>
+                            <li><a href="#">개요</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="has-sub">
+                        <a href="/notice/noticeList">공지사항</a>
+                        <ul>
+                            <li><a href="/notice/noticeList">공지사항</a>
+                            </li>
+                            <li>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="has-sub">
+                        <a href="/center/center">상담센터</a>
+                    </li>
+                    <li class="has-sub">
+                        <a href="#">온라인 상담</a>
+                        <ul>
+                            <li><a href="#">이용방법 </a>
+                            </li>
+                            <li><a href="/online/calendar">예약</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="has-sub">
+                        <a href="#">고객센터</a>
+                        <ul>
+                            <li><a href="#">문의 남기기</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+            <div class="fix_bg"></div>
+        </div>
+    </header>
+    <!-- // 내비게이션 바 -->
+    <div id="subContainer">
+        <div class="subSkin bg"></div>
+
+        <nav id="lnb">
+            <div class="area_subVisual">
+                <div class="inner">
+                    <div class="lnb pc">
+                        <div class="home">
+                            <a href="/main/main"><img src="/img/icon_home.png" alt="홈"></a>
+                        </div>
+                        <ul>
+                            <li>
+                                <a href="/center/center" title="상담센터">상담센터</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="lnb mobile">
+                        <div class="home">
+                            <a href="/main/main"><img src="/img/icon_home.png" alt="홈"></a>
+                        </div>
+                        <div class="large">상담센터</div>
+
+                        <div class="small">
+                            <span data-mobile-tit="">상담센터</span>
+                            <ul>
+                                <li>
+                                    <a href="/center/center" title="상담센터">상담센터</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <br>
+        <br> <br>
+        <br> <br>
+        <br> <br>
+        <br>
+        <div style="display: flex;
+    justify-content: center; /* 가로 중앙 정렬 */
+    align-items: center; /* 세로 중앙 정렬 */
+    flex-wrap: wrap;">
+            <!--컨테이너 왼쪽-->
+            <div class="box" style="width: 500px;">
+                <div id="map" style="height:20%;"></div>
+            </div>
+
+            <!-- 컨테이너 우측-->
+            <div class="box">
+                <form name="fn_mapBoardSearchForm" id="fn_mapBoardSearchForm" method="get" action="/Search">
+                    <fieldset>
+                        <legend>상세검색</legend>
+                        <div class="searchBox">
+                            <input type='hidden' name='mId' value='40'/>
+                            <ul>
+                                <!-- 단일 -->
+                                <li>
+                                    <select name="is_sido" id="is_sido" title="시도">
+                                        <option value="0">시도 선택</option>
+                                        <option value="서울">서울</option>
+                                        <option value="경기">경기</option>
+                                        <option value="부산">부산</option>
+                                        <option value="인천">인천</option>
+                                        <option value="세종">세종</option>
+                                        <option value="강원">강원</option>
+                                        <option value="대구">대구</option>
+                                        <option value="대전">대전</option>
+                                        <option value="광주">광주</option>
+                                        <option value="울산">울산</option>
+                                        <option value="충북">충북</option>
+                                        <option value="충남">충남</option>
+                                        <option value="전북">전북</option>
+                                        <option value="전남">전남</option>
+                                        <option value="경북">경북</option>
+                                        <option value="경남">경남</option>
+                                        <option value="제주">제주</option>
+                                    </select>
+                                </li>
+                                <!-- 옵션 -->
+                                <li class="search_keyField full">
+
+                                </li>
+                                <li>
+                                    <input type="text" placeholder="센터 주소를 입력해 주세요." id="search" title="wnth"/>
+                                </li>
+                                <li><input type="submit" id="fn_btn_search" class="btn" value="검색" title="검색"/></li>
+                            </ul>
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+
+
+        <div id="content">
+            <h2 class="title" style="text-align: center;">지원센터 정보</h2>
+            <div id="cms_board_article">
+                <table class="listTypeA">
+                    <caption>지원센터 리스트</caption>
+                    <colgroup>
+                        <col width="30px" class="mbNone">
+                        <col width="120px">
+                        <col width="60px">
+                        <col width="60px" class="mbNone">
+                        <col width="30px" class="mbNone">
+                    </colgroup>
+                    <thead>
+                    <tr>
+                        <th scope="col" class="mbNone" style="background-color: #90d9d5">지역</th>
+                        <th scope="col" style="background-color: #90d9d5">센터명</th>
+                        <th scope="col" style="background-color: #90d9d5">주소</th>
+                        <th scope="col" class="end mbNone" style="background-color: #90d9d5">연락처</th>
+                        <!-- 마지막 th에 class="end" -->
+                    </tr>
+                    </thead>
+                    <tbody class="alignC">
+                    <tr th:each="dto, iterStat : ${rList}">
+                        <td class="mbNone" th:text="${dto.region}"></td>
+                        <td class="subject" style="align-content: center"
+                            th:attr="onclick='doDetail(\'' + ${dto.seq} + '\')'"
+                            th:text="${dto.centerName}"></td>
+                        <td th:text="${dto.address}"></td>
+                        <td class="mbNone" th:text="${dto.phone}"></td>
+                    </tr>
+                    </tbody>
+                </table>
+                <div class="topGlob" th:if="${session.SS_USER_NAME == 'admin'}">
+                    <span class="btnBc" style="float: right"><a href="/center/centerReg" title="글쓰기"
+                                                                class="fn_btn_list">글쓰기</a></span>
+                </div>
+                <div class="topGlob" th:if="${session.SS_USER_NAME != 'admin'}">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<nav aria-label="Page navigation example" style="text-align: center;">
+    <ul class="pagination pagination-primary" id="pagination">
+        <li class="page-item">
+            <a class="page-link" th:href="@{/center/center?page=1}">&laquo;</a>
+        </li>
+        <li class="page-item" th:if="${currentPage > 1}">
+            <a class="page-link" th:href="@{/center/center(page=${currentPage - 1})}">&lt;</a>
+        </li>
+        <li class="page-item" th:each="pageNumber : ${#numbers.sequence(1, totalPages)}"
+            th:class="${pageNumber == currentPage ? 'active' : ''}">
+            <a class="page-link" th:href="@{/center/center(page=${pageNumber})}" th:text="${pageNumber}"></a>
+        </li>
+        <li class="page-item" th:if="${currentPage < totalPages}">
+            <a class="page-link" th:href="@{/center/center(page=${currentPage + 1})}">&gt;</a>
+        </li>
+        <li class="page-item">
+            <a class="page-link" th:href="@{/center/center(page=${totalPages})}">&raquo;</a>
+        </li>
+    </ul>
+</nav>
+</nav>
+<section id="footer">
+    <div class="container">
+        <div class="row text-center">
+            <div class="col-md-6">
+                <div class="copyright">
+                    <p>마음을 나누는 교실<span><a href="">&#9798;</a></span></p>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="designer">
+                </div>
+            </div>
+        </div>
+        <!--End of row-->
+    </div>
+    <!--End of container-->
+</section>
+</body>
+
+
+<script>
+
+    $(document).ready(function () {
+        // API 로딩이 완료되면 initMap 함수 호출
+        naver.maps.onJSContentLoaded = initMap;
+
+        $.ajax({
+            url: '/center/center', // 해당 URL로 요청을 보냅니다. 컨트롤러의 매핑 경로에 맞게 수정해주세요.
+            type: 'GET',
+            success: function (data) {
+                var rList = data.searchResults; // 서버에서 받아온 데이터 중 rList를 가져옵니다.
+                initMap(data.searchResults);
+            },
+            error: function () {
+                console.error('Failed to fetch data.');
+            }
+        });
+    });
+
+
+    // Ajax 요청 후 성공 시 호출되는 함수
+    function handleSearchResults(response) {
+        // 결과를 보여줄 영역 선택
+        var resultsContainer = $('.alignC');
+        var paginationContainer = $('#pagination');
+
+        // 결과를 보여주기 전에 기존 내용 비우기
+        resultsContainer.empty();
+        paginationContainer.empty();
+
+        // 받은 결과를 순회하면서 리스트 아이템 생성
+        for (var i = 0; i < response.searchResults.length; i++) {
+            var dto = response.searchResults[i];
+
+            // 리스트 아이템 생성
+            var listItem = $('<tr>');
+
+            listItem.append('<td class="mbNone">' + dto.region + '</td>');
+            listItem.append('<td class="subject" style="align-content: center" onclick="doDetail(\'' + dto.seq + '\')">' + dto.centerName + '</td>');
+            listItem.append('<td>' + dto.address + '</td>');
+            listItem.append('<td class="mbNone">' + dto.phone + '</td>');
+
+            // 결과를 보여줄 영역에 리스트 아이템 추가
+            resultsContainer.append(listItem);
+        }
+        // 페이징 업데이트
+        for (var i = 1; i <= response.totalPages; i++) {
+            var pageItem = $('<li class="page-item ' + (i == response.currentPage ? 'active' : '') + '">');
+            var pageLink = $('<a class="page-link" href="#" onclick="loadPage(' + i + ')">' + i + '</a>');
+            pageItem.append(pageLink);
+            paginationContainer.append(pageItem);
+        }
+        initMap(response.searchResults);
+    }
+
+    // 페이지 로딩 함수
+    function loadPage(page) {
+        var selectedSido = $('#is_sido').val();
+        var searchText = $('#search').val();
+
+        if (selectedSido === "0") {
+            selectedSido = "-1";
+        }
+
+        if (searchText.trim() === '') {
+            searchText = "-1";
+        }
+
+        $.ajax({
+            type: 'GET',
+            url: '/center/Search',
+            data: {is_sido: selectedSido, searchText: searchText, page: page},
+            success: function (response) {
+                // 성공 시 결과를 처리하는 함수 호출
+                handleSearchResults(response);
+            },
+            error: function (error) {
+                console.error(error);
+            }
+        });
+    }
+
+
+    $(document).ready(function () {
+        $('#fn_btn_search').click(function (e) {
+            e.preventDefault();
+
+            var selectedSido = $('#is_sido').val();
+            var searchText = $('#search').val();
+
+            if (selectedSido === "0") {
+                selectedSido = "-1";
+            }
+
+            if (searchText.trim() === '') {
+                searchText = "-1";
+            }
+
+            $.ajax({
+                type: 'GET',
+                url: '/center/Search',
+                data: {is_sido: selectedSido, searchText: searchText},
+                success: function (response) {
+                    // 성공 시 결과를 처리하는 함수 호출
+                    handleSearchResults(response);
+                },
+                error: function (error) {
+                    console.error(error);
+                }
+            });
+        });
+    });
+
+
+    // 네이버 지도 API 로딩 후 실행될 함수
+    var map = null;
+
+    function initMap(dList) {
+        var map = new naver.maps.Map('map', {
+            zoom: 5,
+            center: new naver.maps.LatLng(37.3614483, 127.1114883)
+        });
+
+        for (var i = 0; i < dList.length; i++) {
+            var dto = dList[i];
+            // x와 y를 숫자로 변환
+            var x = parseFloat(dto.x);
+            var y = parseFloat(dto.y);
+
+            var marker = new naver.maps.Marker({
+                position: new naver.maps.LatLng(y, x),
+                map: map
+            });
+        }
+    }
+
+    function doDetail(seq) {
+        // URL을 조합하여 새 창 열기
+        var newWindow = window.open('/center/centerinfo?seq=' + seq, '_blank');
+    }
+
+</script>
+</html>
