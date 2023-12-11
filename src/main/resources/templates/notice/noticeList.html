@@ -54,23 +54,23 @@
                         <a href="/notice/noticeList"><span>공지사항</span></a>
                         <ul>
                             <li><a href="/notice/noticeList">공지사항</a></li>
-                            <li><a href="#">상담일정</a></li>
+
                         </ul>
                     </li>
                     <li>
-                        <a href="/center/ctCenter"><span>지역센터</span></a>
+                        <a href="/center/center"><span>상담센터</span></a>
                         <ul>
-                            <li><a href="/center/ctCenter">지역 상담센터</a></li>
-                            <li><a href="#">경기 보호지원센터</a></li>
-                            <li><a href="#">교원 치유지원센터</a></li>
+                            <li><a href="/center/center">상담센터</a></li>
+
+
                         </ul>
                     </li>
                     <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</li>
                     <li>
                         <a href="#"><span>온라인 상담</span></a>
                         <ul>
-                            <li><a href="#">이용방법</a></li>
-                            <li><a href="/online/reservation">예약</a></li>
+
+                            <li><a href="/online/calendar">예약</a></li>
 
                         </ul>
                     </li>
@@ -119,18 +119,18 @@
                         <ul>
                             <li><a href="/notice/noticeList">공지사항</a>
                             </li>
-                            <li><a href="#">상담일정</a>
+                            <li>
                             </li>
                         </ul>
                     </li>
                     <li class="has-sub">
-                        <a href="/center/ctCenter">지역센터</a>
+                        <a href="/center/center">상담센터</a>
                         <ul>
-                            <li><a href="/center/ctCenter">지역 상담센터</a>
+                            <li><a href="/center/center">상담센터</a>
                             </li>
-                            <li><a href="#">경기 보호지원센터</a>
+                            <li></a>
                             </li>
-                            <li><a href="#">교원 치유지원센터</a>
+                            <li>
                             </li>
                         </ul>
                     </li>
@@ -139,7 +139,7 @@
                         <ul>
                             <li><a href="#">이용방법 </a>
                             </li>
-                            <li><a href="/online/reservation">예약</a>
+                            <li><a href="/online/calendar">예약</a>
                             </li>
 
                             </li>
@@ -172,19 +172,7 @@
                         </div>
                         <ul>
                             <li>
-                                <a href="/user/userRegForm" title="회원가입">회원가입</a>
-                            </li>
-                            <li>
-                                <a href="/user/login" title="로그인">로그인</a>
-                            </li>
-                            <li>
-                                <a href="/user/logout" title="로그아웃">로그아웃</a>
-                            </li>
-                            <li>
-                                <a href="/user/searchUserId" title="아이디찾기">아이디찾기</a>
-                            </li>
-                            <li>
-                                <a href="/user/searchPassword" title="비밀번호찾기">비밀번호찾기</a>
+                                <a href="/notice/noticeList" title="공지사항">공지사항</a>
                             </li>
                         </ul>
                     </div>
@@ -192,12 +180,15 @@
                         <div class="home">
                             <a href="/main/main"><img src="/img/icon_home.png" alt="홈"></a>
                         </div>
-                        <div class="large">
-                            <a href="/notice/noticeList" style="color: #ffffff" title="공지사항">공지사항</a>
-                        </div>
+                        <div class="large">공지사항</div>
 
                         <div class="small">
-                            <span data-mobile-tit=""><a href="/user/logout" title="로그아웃" style="color: #ffffff">로그아웃</a></span>
+                            <span data-mobile-tit="">공지사항</span>
+                            <ul>
+                                <li>
+                                    <a href="/notice/noticeList" title="공지사항">공지사항</a>
+                                </li>
+                            </ul>
                         </div>
                     </div>
                 </div>
@@ -228,8 +219,7 @@
                     </thead>
                     <tbody class="alignC">
                     <tr th:each="dto : ${rList}">
-                        <td class="mbNone" th:if="${dto.noticeYn=='Y'}">공지</td>
-                        <td class="mbNone" th:unless="${dto.noticeYn=='Y'}" th:text="${dto.noticeSeq}"></td>
+                        <td class="mbNone" th:text="${dto.noticeSeq}"></td>
                         <td class="subject" th:attr="onclick='doDetail(\'' + ${dto.noticeSeq} + '\')'"
                             th:text="${dto.title}"></td>
                         <td th:text="${dto.userId}"></td>

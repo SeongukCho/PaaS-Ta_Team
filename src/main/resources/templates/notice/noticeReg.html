@@ -64,18 +64,6 @@
                 f.title.focus();
                 return;
             }
-            let noticeCheck = false; //체크 여부 확인 변수
-            for (let i = 0; i < f.noticeYn.length; i++) {
-                if (f.noticeYn[i].checked) {
-                    noticeCheck = true;
-                    break;
-                }
-            }
-            if (noticeCheck === false) {
-                alert("공지글 여부를 선택하시기 바랍니다.");
-                f.noticeYn[0].focus();
-                return;
-            }
             if (f.contents.value === "") {
                 alert("내용을 입력하시기 바랍니다.");
                 f.contents.focus();
@@ -104,47 +92,196 @@
     </script>
 </head>
 <body>
-<h2>공지사항 등록하기</h2>
-<hr/>
-<br/>
-<form name="f" id="f">
-    <div class="divTable minimalistBlack">
-        <div class="divTableBody">
-            <div class="divTableRow">
-                <div class="divTableCell">제목
+<div id="wrapper">
+    <!-- 내비게이션 바 -->
+    <header id="header" class>
+        <div class="head_box">
+            <h1 class="logo"><a href="/main/main">마음을 나누는 교실</a></h1>
+            <button type="button" class="btnMenu"><span>메뉴</span></button>
+            <!-- gnb -->
+            <nav id="gnb">
+                <ul class="gnb">
+                    <li>
+                        <a href="#"><span>소개</span></a>
+                        <ul>
+                            <li><a href="#">인사말</a></li>
+                            <li><a href="#">개요</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="/notice/noticeList"><span>공지사항</span></a>
+                        <ul>
+                            <li><a href="/notice/noticeList">공지사항</a></li>
+
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="/center/center"><span>상담센터</span></a>
+                        <ul>
+                            <li><a href="/center/center">상담센터</a></li>
+
+
+                        </ul>
+                    </li>
+                    <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</li>
+                    <li>
+                        <a href="#"><span>온라인 상담</span></a>
+                        <ul>
+
+                            <li><a href="/online/calendar">예약</a></li>
+
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#"><span>고객센터</span></a>
+                        <ul>
+                            <li><a href="#">고객센터</a></li>
+                            <li><a href="#">FAQ</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+            <!-- //gnb -->
+            <div class="topGlob" th:if="${session.SS_USER_NAME == null}">
+                <ul>
+                    <li><a href="/user/userRegForm">회원가입</a></li>
+                    <li><a href="/user/login">로그인</a></li>
+                </ul>
+            </div>
+            <div class="topGlob" th:if="${session.SS_USER_NAME != null}">
+                <p th:text="'안녕하세요, ' + ${session.SS_USER_NAME} + '님!'"></p>
+                <a href="/user/logout">로그아웃</a>
+            </div>
+
+            <nav id="mGnb">
+                <button type="button" class="btnClose"><span>닫기</span></button>
+                <div class="mbTop">
+                    <div class="mlogo"><a href="/main/main"><img src="/img/logo.png"></a></div>
+                    <ul>
+                        <li><a href="/user/userRegForm">회원가입</a></li>
+                        <li><a href="/user/login">로그인</a></li>
+                    </ul>
                 </div>
-                <div class="divTableCell">
-                    <input type="text" name="title" maxlength="100" style="width: 95%"/>
+                <ul>
+                    <li class="has-sub">
+                        <a href="#">소개</a>
+                        <ul>
+                            <li><a href="#">인사말</a>
+                            </li>
+                            <li><a href="#">개요</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="has-sub">
+                        <a href="/notice/noticeList">공지사항</a>
+                        <ul>
+                            <li><a href="/notice/noticeList">공지사항</a>
+                            </li>
+                            <li>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="has-sub">
+                        <a href="/center/center">상담센터</a>
+                        <ul>
+                            <li><a href="/center/center">상담센터</a>
+                            </li>
+                            <li></a>
+                            </li>
+                            <li>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="has-sub">
+                        <a href="#">온라인 상담</a>
+                        <ul>
+                            <li><a href="#">이용방법 </a>
+                            </li>
+                            <li><a href="/online/calendar">예약</a>
+                            </li>
+
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="has-sub">
+                        <a href="#">고객센터</a>
+                        <ul>
+                            <li><a href="#">문의 남기기</a>
+                            </li>
+
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+            <div class="fix_bg"></div>
+        </div>
+    </header>
+    <!-- // 내비게이션 바 -->
+    <div id="subContainer">
+        <div class="subSkin bg"></div>
+
+        <nav id="lnb">
+            <div class="area_subVisual">
+                <div class="inner">
+                    <div class="lnb pc">
+                        <div class="home">
+                            <a href="/main/main"><img src="/img/icon_home.png" alt="홈"></a>
+                        </div>
+                        <ul>
+                            <li>
+                                <a href="/notice/noticeList" title="공지사항">공지사항</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="lnb mobile">
+                        <div class="home">
+                            <a href="/main/main"><img src="/img/icon_home.png" alt="홈"></a>
+                        </div>
+                        <div class="large">공지사항</div>
+
+                        <div class="small">
+                            <span data-mobile-tit="">공지사항</span>
+                            <ul>
+                                <li>
+                                    <a href="/notice/noticeList" title="공지사항">공지사항</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="divTableRow">
-                <div class="divTableCell">공지글 여부
+        </nav>
+        <div id="content">
+            <h1 class="title">공지사항 작성하기</h1>
+            <form name="f" id="f">
+                <div class="divTable minimalistBlack">
+                    <div class="divTableBody">
+                        <div class="divTableRow">
+                            <div class="divTableCell">제목
+                            </div>
+                            <div class="divTableCell">
+                                <input type="text" name="title" maxlength="100" style="width: 95%"/>
+                            </div>
+                        </div>
+                        <div class="divTableRow">
+                            <div class="divTableCell">내용
+                            </div>
+                            <div class="divTableCell">
+                                <textarea name="contents" style="width: 95%; height: 400px"></textarea>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="divTableCell">
-                    예<input type="radio" name="noticeYn" value="Y"/>
-                    아니오<input type="radio" name="noticeYn" value="N"/>
+                <br>
+                <div style="text-align: center;">
+                    <button id="btnSend" type="button">등록</button>
+                    <button type="button"><a href="/notice/noticeList" style="color: white">취소</a></button>
                 </div>
-            </div>
-            <div class="divTableRow">
-                <div class="divTableCell">조회수
-                </div>
-                <div class="divTableCell">
-                </div>
-            </div>
-            <div class="divTableRow">
-                <div class="divTableCell">내용
-                </div>
-                <div class="divTableCell">
-                    <textarea name="contents" style="width: 95%; height: 400px"></textarea>
-                </div>
-            </div>
+            </form>
         </div>
     </div>
-    <div>
-        <button id="btnSend" type="button">등록</button>
-        <button type="reset">다시 작성</button>
-    </div>
-</form>
+</div>
 <section id="footer">
     <div class="container">
         <div class="row text-center">
