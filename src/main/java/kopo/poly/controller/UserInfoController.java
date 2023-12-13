@@ -30,7 +30,6 @@ public class UserInfoController {
 
     private final IUserInfoService userInfoService;
 
-
     // 로그인 화면으로 이동
     @GetMapping(value = "login")
     public String login() {
