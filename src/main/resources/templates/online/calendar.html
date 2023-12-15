@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>예약하기</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <script type="text/javascript" src="/js/jquery-1.9.1.min.js"></script>
+    <script type="text/javascript" src="/js/jquery-ui.js"></script>
+    <script type="text/javascript" src="/js/menu.js"></script>
+    <script type="text/javascript" src="/js/common.js"></script>
+
+    <link rel="stylesheet" href="/css/fullpage.css">
+    <link rel="stylesheet" href="/css/board.css">
+    <link rel="stylesheet" href="/css/re.css">
+    <link rel="stylesheet" href="/css/etc.css">
+    <link rel="stylesheet" href="/css/font.css">
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/carousel.css">
+    <link rel="stylesheet" href="/css/responsive.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/css/ui_content.css">
+</head>
+
+<script type="text/javascript">
+    let today = new Date(); // 달력의 날짜 ?
+
+    let realMonth = today.getMonth();
+    let realYear = today.getFullYear();
+
+    function prevCalendar() {
+        if (today.getFullYear() > realYear) {
+            if (today.getMonth() < realMonth - 12) {
+                alert("예약은 금일기준 다음날부터 30일 이후까지만 가능합니다.");
+                return false;
+            }
+        } else {
+            if (today.getMonth() - 1 < realMonth) {
+                alert("예약은 금일기준 다음날부터 30일 이후까지만 가능합니다.");
+                return false;
+            }
+        }
+        // if (today.getMonth() - 1 < realMonth) {
+        //     alert("예약은 금일기준 다음날부터 30일 이후까지만 가능합니다.");
+        //     return false;
+        // }
+
+
+        today = new Date(today.getFullYear(), today.getMonth() - 1, today.getDate());
+
+        buildCalendar();
+    }
+
+
+    //다음달 달력
+    function nextCalendar() {
+
+        if (today.getFullYear() > realYear) {
+            if (today.getMonth() + 12 > realMonth) {
+                alert("예약은 금일기준 다음날부터 30일 이후까지만 가능합니다.");
+                return false;
+            }
+        } else {
+            if (today.getMonth() > realMonth + 1) {
+                alert("예약은 금일기준 다음날부터 30일 이후까지만 가능합니다.");
+                return false;
+            }
+        }
+
+        today = new Date(today.getFullYear(), today.getMonth() + 1, today.getDate());
+        buildCalendar();
+    }
+
+    function buildCalendar() {
+        let row = null
+        let cnt = 0;
+
+        let firstDate = new Date(today.getFullYear(), today.getMonth(), 1);
+        let lastDate = new Date(today.getFullYear(), today.getMonth() + 1, 0);
+
+
+        let calendarTable = document.getElementById("calendar");
+        let calendarTableTitle = document.getElementById("calendarTitle");
+        calendarTableTitle.innerHTML = today.getFullYear() + "년" + (today.getMonth() + 1) + "월";
+
+
+        while (calendarTable.rows.length > 2) {
+            calendarTable.deleteRow(calendarTable.rows.length - 1);
+        }
+
+        row = calendarTable.insertRow();
+
+        for (i = 0; i < firstDate.getDay(); i++) {
+            cell = row.insertCell();
+            cnt += 1;
+        }
+
+        for (i = 1; i <= lastDate.getDate(); i++) {
+            cell = row.insertCell();
+            cnt += 1;
+
+            cell.setAttribute('id', i);
+            cell.innerHTML = i;
+            cell.align = "center";
+            cell.className = "rstd";
+
+            // 클릭 이벤트 추가
+            cell.onclick = function () {
+                // 클릭한 날짜 정보 가져오기
+                clickedYear = today.getFullYear();
+                clickedMonth = (1 + today.getMonth());
+                clickedDate = this.getAttribute('id');
+
+                clickedDate = clickedDate >= 10 ? clickedDate : '0' + clickedDate;
+                clickedMonth = clickedMonth >= 10 ? clickedMonth : '0' + clickedMonth;
+                clickedYMD = clickedYear + "-" + clickedMonth + "-" + clickedDate;
+
+                clickedInfo = clickedYear.toString() + clickedMonth.toString() + clickedDate.toString();
+
+                // opener.document.getElementById("date").value = clickedYMD;
+                // self.close();
+                // window.open('/online/calendar/resInfo?date=' + clickedInfo, 'Reservation Form', 'width=600, height=400');
+            }
+
+            if (cnt % 7 == 1) {
+                cell.innerHTML = "<font color=#F79DC2>" + i + "</font>";
+            }
+
+            if (cnt % 7 == 0) {
+                cell.innerHTML = "<font color=skyblue>" + i + "</font>";
+                row = calendar.insertRow();
+            }
+        }
+
+        if (cnt % 7 != 0) {
+            for (i = 0; i < 7 - (cnt % 7); i++) {
+                cell = row.insertCell();
+            }
+        }
+    }
+</script>
+<body>
+<div id="wrapper">
+    <!-- 내비게이션 바 -->
+    <header id="header" class>
+        <div class="head_box">
+            <h1 class="logo"><a href="/main/main">마음을 나누는 교실</a></h1>
+            <button type="button" class="btnMenu"><span>메뉴</span></button>
+            <!-- gnb -->
+            <nav id="gnb">
+                <ul class="gnb">
+                    Res
+                    <li>
+                        <a href="/notice/noticeList"><span>공지사항</span></a>
+                        <ul>
+                            <li><a href="/notice/noticeList">공지사항</a></li>
+
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="/center/center"><span>상담센터</span></a>
+                        <ul>
+                            <li><a href="/center/center">상담센터</a></li>
+
+
+                        </ul>
+                    </li>
+                    <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</li>
+                    <li>
+                        <a href="#"><span>온라인 상담</span></a>
+                        <ul>
+
+                            <li><a href="/online/calendar">예약</a></li>
+
+                        </ul>
+                    </li>
+                    <!--<li>
+                        <a href="#"><span>고객센터</span></a>
+                        <ul>
+                            <li><a href="#">고객센터</a></li>
+                            <li><a href="#">FAQ</a></li>
+                        </ul>
+                    </li>-->
+                </ul>
+            </nav>
+            <!-- //gnb -->
+            <div class="topGlob" th:if="${session.SS_USER_NAME == null}">
+                <ul>
+                    <li><a href="/user/userRegForm">회원가입</a></li>
+                    <li><a href="/user/login">로그인</a></li>
+                </ul>
+            </div>
+            <div class="topGlob" th:if="${session.SS_USER_NAME != null}">
+                <p th:text="'안녕하세요, ' + ${session.SS_USER_NAME} + '님!'"></p>
+                <a href="/user/logout">로그아웃</a>
+            </div>
+
+            <nav id="mGnb">
+                <button type="button" class="btnClose"><span>닫기</span></button>
+                <div class="mbTop">
+                    <div class="mlogo"><a href="/main/main"><img src="/img/logo.png"></a></div>
+                    <ul>
+                        <li><a href="/user/userRegForm">회원가입</a></li>
+                        <li><a href="/user/login">로그인</a></li>
+                    </ul>
+                </div>
+                <ul>
+
+                    <li class="has-sub">
+                        <a href="/notice/noticeList">공지사항</a>
+                        <ul>
+                            <li><a href="/notice/noticeList">공지사항</a>
+                            </li>
+                            <li>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="has-sub">
+                        <a href="/center/center">상담센터</a>
+                        <ul>
+                            <li><a href="/center/center">상담센터</a>
+                            </li>
+                            <li></a>
+                            </li>
+                            <li>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="has-sub">
+                        <a href="#">온라인 상담</a>
+                        <ul>
+                            <li><a href="#">이용방법 </a>
+                            </li>
+                            <li><a href="/online/calendar">예약</a>
+                            </li>
+
+                            </li>
+                        </ul>
+                    </li>
+                    <!--<li>
+                        <a href="#"><span>고객센터</span></a>
+                        <ul>
+                            <li><a href="#">고객센터</a></li>
+                            <li><a href="#">FAQ</a></li>
+                        </ul>
+                    </li>-->
+                </ul>
+            </nav>
+            <div class="fix_bg"></div>
+        </div>
+    </header>
+    <!-- // 내비게이션 바 -->
+
+    <div id="subContainer">
+        <div class="subSkin bg"></div>
+        <nav id="lnb">
+            <div class="area_subVisual">
+                <div class="inner">
+                    <div class="lnb pc">
+                        <div class="home">
+                            <a href="/main/main"><img src="/img/icon_home.png" alt="홈"></a>
+                        </div>
+                        <ul>
+                            <li>
+                                <a href="/online/calendar" title="예약">예약</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="lnb mobile">
+                        <div class="home">
+                            <a href="/main/main"><img src="/img/icon_home.png" alt="홈"></a>
+                        </div>
+                        <div class="large">온라인 상담</div>
+
+                        <div class="small">
+                            <span data-mobile-tit="">예약</span>
+                            <ul>
+                                <li>
+                                    <a href="/online/calendar" title="예약">예약</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+        <div id="content">
+            <h1 class="title">예약하기</h1>
+            <div class="sContent">
+                <table id="calendar" align="center">
+                    <tr>
+                        <td class="rstd"><label onclick="prevCalendar()"> ◀ </label></td>
+                        <td class="rstd" colspan="5" id="calendarTitle">yyyy년 m월</td>
+                        <td class="rstd"><label onclick="nextCalendar()"> ▶ </label></td>
+                    </tr>
+                    <tr>
+                        <td class="rstd"><font color="#F79DC2">일</font></td>
+                        <td class="rstd">월</td>
+                        <td class="rstd">화</td>
+                        <td class="rstd">수</td>
+                        <td class="rstd">목</td>
+                        <td class="rstd">금</td>
+                        <td class="rstd"><font color="skyblue">토</font></td>
+                    </tr>
+                    <script type="text/javascript">buildCalendar();</script>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<section id="footer">
+    <div class="container">
+        <div class="row text-center">
+            <div class="col-md-6">
+                <div class="copyright">
+                    <p>마음을 나누는 교실<span><a href="">&#9798;</a></span></p>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="designer">
+                </div>
+            </div>
+        </div>
+        <!--End of row-->
+    </div>
+    <!--End of container-->
+</section>
+
+</body>
+</html>
